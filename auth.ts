@@ -1,11 +1,42 @@
 import NextAuth from 'next-auth'
-import type { NextAuthConfig } from 'next-auth'
-import google from 'next-auth/providers/google'
+import { PrismaAdapter } from '@auth/prisma-adapter'
 
-export const config = {
-	providers: [google],
-	basePath: '/auth',
-	callbacks: {},
-} satisfies NextAuthConfig
+import Google from 'next-auth/providers/google'
+import { db } from './lib/db'
+import { getUserById } from './data/user'
+import { getAccountByUserId } from './data/account'
 
-export const { handlers, auth, signIn, signOut } = NextAuth(config)
+export const {
+	handlers: { GET, POST },
+	auth,
+	signIn,
+	signOut,
+} = NextAuth({
+	providers: [
+		Google({
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+		}),
+	],
+	callbacks: {
+		async jwt({ token }) {
+			if (!token.sub) return token
+
+			const existingUser = await getUserById(token.sub)
+
+			if (!existingUser) return token
+
+			const existingAccount = await getAccountByUserId(existingUser.id)
+
+			token.isOAuth = !!existingAccount
+			token.name = existingUser.name
+			token.email = existingUser.email
+			// token.role = existingUser.role
+			// token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled
+
+			return token
+		},
+	},
+	adapter: PrismaAdapter(db),
+	session: { strategy: 'jwt' },
+})
