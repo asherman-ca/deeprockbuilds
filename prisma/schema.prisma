@@ -84,8 +84,9 @@ model Build {
   userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  saves       Int
   likes       BuildLike[]
-  weapons    BuildWeapon[]
+  weapons     BuildWeapon[]
 }
 
 model BuildLike {

@@ -15,6 +15,7 @@ const Navbar: FC<NavbarProps> = () => {
 	const tabs = [
 		{ title: 'Meta Builds', slug: 'meta-builds' },
 		{ title: 'Community Builds', slug: 'community-builds' },
+		{ title: 'Tierlist', slug: 'tierlist' },
 		{ title: 'Build Planner', slug: 'build-planner' },
 		{ title: 'Database', slug: 'database' },
 	]

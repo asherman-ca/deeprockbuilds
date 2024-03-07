@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 import Navbar from '@/components/Navbar'
 import { auth } from '@/auth'
+import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
 	title: 'DeeprockBuilds',
@@ -23,10 +24,11 @@ export default async function RootLayout({
 		<SessionProvider session={session}>
 			<html lang='en'>
 				<body
-					className={`${inter.className} w-full flex justify-center flex-col`}
+					className={`${inter.className} w-full flex justify-center flex-col min-h-screen`}
 				>
 					<Navbar />
 					{children}
+					<Footer />
 				</body>
 			</html>
 		</SessionProvider>
