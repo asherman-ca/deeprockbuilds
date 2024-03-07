@@ -42,3 +42,31 @@ model Account {
 
   @@unique([provider, providerAccountId])
 }
+
+model Class {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  image       String
+  specs      Spec[]
+}
+
+model Spec {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  classId     String
+  image       String
+  class       Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  weapons     Weapon[]
+}
+
+model Weapon {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  image       String
+  specs       Spec[]
+}
+
+

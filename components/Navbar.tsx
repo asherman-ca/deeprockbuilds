@@ -32,6 +32,7 @@ const Navbar: FC<NavbarProps> = () => {
 				<div className='w-[90%] sm:w-[80%] max-w-[1400px] flex justify-center gap-8'>
 					{tabs.map((tab) => (
 						<Link
+							key={tab.slug}
 							href={tab.slug}
 							className={cn('py-2', {
 								'border-b-2 border-primary': '/' + tab.slug === pathname,
