@@ -23,7 +23,6 @@ model User {
   password      String?
   accounts      Account[]
   builds        Build[]
-  buildlikes    BuildLike[]
 }
 
 model Account {
@@ -85,18 +84,7 @@ model Build {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   saves       Int
-  likes       BuildLike[]
   weapons     BuildWeapon[]
-}
-
-model BuildLike {
-  id          String  @id @default(cuid())
-  buildId     String
-  userId      String
-  build       Build @relation(fields: [buildId], references: [id], onDelete: Cascade)
-  user        User @relation(fields: [userId], references: [id])
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
 }
 
 model BuildWeapon {
