@@ -5,7 +5,7 @@ interface FooterProps {}
 
 const Footer: FC<FooterProps> = ({}) => {
 	return (
-		<div className='parent bg-gray-500/10 mt-auto py-4'>
+		<div className='parent border-primary/20 border-t mt-auto py-4'>
 			<div className='gutters flex justify-between gap-4'>
 				<div className='flex-3 flex flex-col gap-2'>
 					<h2 className='font-semibold'>DeeprockBuilds</h2>

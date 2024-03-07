@@ -29,7 +29,7 @@ const Navbar: FC<NavbarProps> = () => {
 					<DropdownMenu />
 				</div>
 			</div>
-			<div className='flex justify-center bg-gray-500/10 w-full'>
+			<div className='flex justify-center border-b border-t border-primary/20 w-full'>
 				<div className='w-[90%] sm:w-[80%] max-w-[1400px] flex justify-center gap-8'>
 					{tabs.map((tab) => (
 						<Link
