@@ -22,7 +22,7 @@ export default async function RootLayout({
 	return (
 		<SessionProvider session={session}>
 			<html lang='en'>
-				<body className={`${inter.className}`}>
+				<body className={`${inter.className} w-full flex justify-center`}>
 					<Navbar />
 					{children}
 				</body>
