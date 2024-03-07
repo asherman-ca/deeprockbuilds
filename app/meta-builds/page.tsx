@@ -1,17 +1,11 @@
-import { FC } from 'react'
+import React from 'react'
+import Client from '@/app/meta-builds/_components/client'
+import { getClasses } from '@/data/class'
 
-interface pageProps {}
+const page = async () => {
+	const classes = (await getClasses()) as any
 
-const page: FC<pageProps> = ({}) => {
-	return (
-		<div className='parent'>
-			<div className='gutters py-4'>
-				<div>
-					<h1 className='text-xl font-semibold'>DRGS Meta Builds</h1>
-				</div>
-			</div>
-		</div>
-	)
+	return <Client classes={classes} />
 }
 
 export default page

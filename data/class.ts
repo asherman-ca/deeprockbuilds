@@ -17,3 +17,13 @@ export const getClassesSpecsAndWeapons = async () => {
 		return null
 	}
 }
+
+export const getClasses = async () => {
+	try {
+		const classes = await db.class.findMany()
+		return classes
+	} catch (e) {
+		console.log(e)
+		return null
+	}
+}
