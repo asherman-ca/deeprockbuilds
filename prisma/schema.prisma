@@ -50,6 +50,8 @@ model Class {
   description String
   image       String
   specs       Spec[]
+  builds      Build[]
+  metaBuilds  metaBuild[]
 }
 
 model Spec {
@@ -78,13 +80,16 @@ model Build {
   description String
   image       String
   specId      String
+  classIdd    String
   spec        Spec @relation(fields: [specId], references: [id], onDelete: Cascade)
   user        User @relation(fields: [userId], references: [id])
+  class       Class @relation(fields: [classIdd], references: [id], onDelete: Cascade)
   userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   saves       Int
   weapons     BuildWeapon[]
+  metaBuilds  metaBuild[]
 }
 
 model BuildWeapon {
@@ -97,3 +102,13 @@ model BuildWeapon {
   updatedAt   DateTime @updatedAt
 }
 
+model metaBuild {
+  id          String  @id @default(cuid())
+  position    Int
+  buildId     String
+  classId     String
+  class       Class @relation(fields: [classId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  build       Build @relation(fields: [buildId], references: [id], onDelete: Cascade)
+}
