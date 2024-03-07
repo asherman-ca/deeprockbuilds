@@ -12,6 +12,7 @@
 		"@auth/prisma-adapter": "^1.5.0",
 		"@prisma/client": "^5.10.2",
 		"@radix-ui/react-avatar": "^1.0.4",
+		"@radix-ui/react-slot": "^1.0.2",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.0",
 		"lucide-react": "^0.348.0",
@@ -19,6 +20,7 @@
 		"next-auth": "^5.0.0-beta.4",
 		"react": "^18",
 		"react-dom": "^18",
+		"react-icons": "^5.0.1",
 		"tailwind-merge": "^2.2.1",
 		"tailwindcss-animate": "^1.0.7"
 	},
