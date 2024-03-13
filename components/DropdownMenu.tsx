@@ -39,7 +39,7 @@ const DropDownMenu: FC<DropDownMenuProps> = () => {
 					</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent>
+			<DropdownMenuContent className='bg-primary/10 border-primary/20 border'>
 				{!user ? (
 					<>
 						<DropdownMenuLabel>Login/Register</DropdownMenuLabel>
@@ -56,8 +56,13 @@ const DropDownMenu: FC<DropDownMenuProps> = () => {
 						</DropdownMenuItem>
 					</>
 				) : (
-					<div className='flex gap-4 items-center'>
-						<Button size='default' variant='link' onClick={onLogout}>
+					<div className='flex gap-4 items-center '>
+						<Button
+							size='default'
+							variant='link'
+							onClick={onLogout}
+							className=''
+						>
 							Logout
 						</Button>
 					</div>
