@@ -36,7 +36,7 @@ const page: FC<pageProps> = ({ classes }) => {
 
 				<div className='flex gap-4'>
 					<div className='flex basis-[35%]'>
-						<div className='flex flex-col bg-primary-foreground w-full'>
+						<div className='flex flex-col bg-primary-foreground w-full rounded-md'>
 							{classes.map((item, idx) => (
 								<div
 									key={item.id}
@@ -44,9 +44,16 @@ const page: FC<pageProps> = ({ classes }) => {
 										'p-4 border-primary/20 flex items-center gap-2 cursor-pointer group text-primary/75 transition-all',
 										{
 											'border-b': idx !== classes.length - 1,
+											'bg-primary/10': selectedClass === item.name,
 										}
 									)}
-									onClick={() => setSelectedClass(item.name)}
+									onClick={() => {
+										if (selectedClass === item.name) {
+											setSelectedClass('')
+										} else {
+											setSelectedClass(item.name)
+										}
+									}}
 								>
 									<Image
 										className='rounded-md h-10 w-10 bg-primary/10 p-1'
@@ -79,7 +86,18 @@ const page: FC<pageProps> = ({ classes }) => {
 						</div>
 					</div>
 
-					<div className='flex flex-col basis-[65%]'>list</div>
+					<div className='flex flex-col basis-[65%] text-primary/75'>
+						<div>
+							<h2 className='p-2 bg-primary/10 rounded-md'>Popular Builds</h2>
+							<div>{selectedClass} build 1</div>
+							<div>{selectedClass} build 2</div>
+						</div>
+						<div>
+							<h2 className='p-2 bg-primary/10 rounded-md'>Other Builds</h2>
+							<div>{selectedClass} build 1</div>
+							<div>{selectedClass} build 2</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
