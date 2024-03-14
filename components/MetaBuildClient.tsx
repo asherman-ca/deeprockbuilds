@@ -14,19 +14,13 @@ interface pageProps {
 		description: string
 		image: string
 	}[]
-	builds: {
-		id: number
-		name: string
-		description: string
-	}[]
+	builds: any[]
 }
 
 const page: FC<pageProps> = ({ classes, builds }) => {
 	const [selectedClass, setSelectedClass] = useState<
 		(typeof classNames)[number] | ''
 	>('')
-
-	console.log(classes)
 	console.log(builds)
 
 	return (
@@ -99,8 +93,26 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 					<div className='flex flex-col basis-[65%] text-primary/75'>
 						<div>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Popular Builds</h2>
-							<div>{selectedClass} build 1</div>
-							<div>{selectedClass} build 2</div>
+							{builds.map((item) => (
+								<div key={item.id} className='flex justify-between w-full'>
+									<Image
+										src={item.class.image}
+										width={50}
+										height={50}
+										className='h-10 w-10'
+										alt='class image'
+									/>
+									<p>
+										{item.build.spec.name}
+										{item.build.name}
+									</p>
+									<div>
+										{item.build.weapons.map((weapon: any) => (
+											<div key={weapon.weapon.id}>{weapon.weapon.name}</div>
+										))}
+									</div>
+								</div>
+							))}
 						</div>
 						<div>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Other Builds</h2>
