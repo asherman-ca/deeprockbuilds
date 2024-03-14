@@ -5,6 +5,7 @@ import { getMetaBuilds } from '@/data/builds'
 
 const page = async () => {
 	const classes = (await getClasses()) as any
+	console.log('cls', classes)
 	const builds = (await getMetaBuilds()) as any
 
 	return <MetaBuildClient classes={classes} builds={builds} />

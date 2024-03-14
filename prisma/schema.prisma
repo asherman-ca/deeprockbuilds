@@ -47,7 +47,7 @@ model Account {
 model Class {
   id          String  @id @default(cuid())
   name        String
-  description String
+  stats       Json
   image       String
   specs       Spec[]
   builds      Build[]
@@ -57,22 +57,27 @@ model Class {
 model Spec {
   id          String  @id @default(cuid())
   name        String
-  description String
+  stats       String
   classId     String
   image       String
   class       Class @relation(fields: [classId], references: [id], onDelete: Cascade)
-  weapons     Weapon[]
+  weapons     Weapon[] @relation(name: "specweapons")
   builds      Build[]
+  // weaponId   String
+  // weapon     Weapon @relation(fields: [weaponId], references: [id])
 }
 
 model Weapon {
   id          String  @id @default(cuid())
   name        String
+  stats       Json
   description String
   image       String
-  specs       Spec[]
+  specs       Spec[] @relation(name: "specweapons")
   buildweapons BuildWeapon[]
   overclocks   Overclock[]
+  // specId      String
+  // spec        Spec @relation(fields: [specId], references: [id])
 }
 
 model Overclock {
@@ -80,8 +85,7 @@ model Overclock {
   name        String
   description String
   image       String
-  weaponId    String
-  weapon      Weapon @relation(fields: [weaponId], references: [id], onDelete: Cascade)
+  weapons     Weapon[]
   buildweaponoverclocks BuildWeaponOverclock[]
 }
 
@@ -91,10 +95,10 @@ model Build {
   description String
   image       String
   specId      String
-  classIdd    String
+  classId    String
   spec        Spec @relation(fields: [specId], references: [id], onDelete: Cascade)
   user        User @relation(fields: [userId], references: [id])
-  class       Class @relation(fields: [classIdd], references: [id], onDelete: Cascade)
+  class       Class @relation(fields: [classId], references: [id], onDelete: Cascade)
   userId      String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

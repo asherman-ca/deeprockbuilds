@@ -26,7 +26,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 		(typeof classNames)[number] | ''
 	>('')
 
-	console.log(selectedClass)
+	console.log(classes)
 	console.log(builds)
 
 	return (
