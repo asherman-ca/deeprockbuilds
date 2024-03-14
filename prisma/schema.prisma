@@ -63,8 +63,7 @@ model Spec {
   class       Class @relation(fields: [classId], references: [id], onDelete: Cascade)
   weapons     Weapon[] @relation(name: "specweapons")
   builds      Build[]
-  // weaponId   String
-  // weapon     Weapon @relation(fields: [weaponId], references: [id])
+  primaryWeapon Weapon?
 }
 
 model Weapon {
@@ -76,8 +75,8 @@ model Weapon {
   specs       Spec[] @relation(name: "specweapons")
   buildweapons BuildWeapon[]
   overclocks   Overclock[]
-  // specId      String
-  // spec        Spec @relation(fields: [specId], references: [id])
+  primarySpecId String? @unique
+  primarySpec Spec? @relation(fields: [primarySpecId], references: [id])
 }
 
 model Overclock {

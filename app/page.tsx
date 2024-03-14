@@ -12,3 +12,9 @@ const page = async () => {
 }
 
 export default page
+
+// {"Damage": "60*7 Bullets",
+// "Fire Rate": "2/s",
+// "Clip Size": "2",
+// "Reload Time": "4s",
+// "DPS": "24-168"}
