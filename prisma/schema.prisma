@@ -72,6 +72,17 @@ model Weapon {
   image       String
   specs       Spec[]
   buildweapons BuildWeapon[]
+  overclocks   Overclock[]
+}
+
+model Overclock {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  image       String
+  weaponId    String
+  weapon      Weapon @relation(fields: [weaponId], references: [id], onDelete: Cascade)
+  buildweaponoverclocks BuildWeaponOverclock[]
 }
 
 model Build {
@@ -98,6 +109,17 @@ model BuildWeapon {
   weaponId    String
   build       Build @relation(fields: [buildId], references: [id], onDelete: Cascade)
   weapon      Weapon @relation(fields: [weaponId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  overclocks  BuildWeaponOverclock[]
+}
+
+model BuildWeaponOverclock {
+  id          String  @id @default(cuid())
+  buildWeaponId String
+  overclockId   String
+  buildWeapon   BuildWeapon @relation(fields: [buildWeaponId], references: [id], onDelete: Cascade)
+  overclock     Overclock @relation(fields: [overclockId], references: [id], onDelete: Cascade)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

@@ -13,7 +13,7 @@ const Navbar: FC<NavbarProps> = () => {
 	const pathname = usePathname()
 	const user = useCurrentUser()
 	const tabs = [
-		{ title: 'Meta Builds', slug: 'meta-builds' },
+		{ title: 'Meta Builds', slug: '/' },
 		{ title: 'Tierlist', slug: 'tierlist' },
 		{ title: 'My Builds', slug: 'my-builds' },
 		{ title: 'Build Planner', slug: 'build-planner' },
@@ -23,7 +23,9 @@ const Navbar: FC<NavbarProps> = () => {
 	return (
 		<div className='w-full flex flex-col items-center'>
 			<div className='flex justify-between items-center py-2 w-[90%] sm:w-[80%] max-w-[1400px]'>
-				<h2 className='font-semibold'>DeeprockBuilds</h2>
+				<Link href={'/'}>
+					<h2 className='font-semibold'>DeeprockBuilds</h2>
+				</Link>
 				<div className='flex gap-2 items-center'>
 					{user && <h2 className='text-sm'>{user.name}</h2>}
 					<DropdownMenu />

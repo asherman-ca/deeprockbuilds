@@ -14,14 +14,20 @@ interface pageProps {
 		description: string
 		image: string
 	}[]
+	builds: {
+		id: number
+		name: string
+		description: string
+	}[]
 }
 
-const page: FC<pageProps> = ({ classes }) => {
+const page: FC<pageProps> = ({ classes, builds }) => {
 	const [selectedClass, setSelectedClass] = useState<
 		(typeof classNames)[number] | ''
 	>('')
 
 	console.log(selectedClass)
+	console.log(builds)
 
 	return (
 		<div className='parent'>
