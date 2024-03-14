@@ -22,14 +22,27 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 		(typeof classNames)[number] | ''
 	>('')
 	console.log(builds)
-	const [filteredBuilds, setFilteredBuilds] = useState(builds)
+	const [filteredBuilds, setFilteredBuilds] = useState(
+		builds.filter((item) => !item.popular)
+	)
+	const [popularFilteredBuilds, setPopularFilteredBuilds] = useState(
+		builds.filter((item) => item.popular)
+	)
 
 	useEffect(() => {
 		if (selectedClass === '') {
-			setFilteredBuilds(builds)
+			setFilteredBuilds(builds.filter((item) => !item.popular))
+			setPopularFilteredBuilds(builds.filter((item) => item.popular))
 		} else {
 			setFilteredBuilds(
-				builds.filter((item) => item.class.name === selectedClass)
+				builds.filter(
+					(item) => item.class.name === selectedClass && !item.popular
+				)
+			)
+			setPopularFilteredBuilds(
+				builds.filter(
+					(item) => item.class.name === selectedClass && item.popular
+				)
 			)
 		}
 	}, [selectedClass])
@@ -104,7 +117,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 					<div className='flex flex-col basis-[65%] text-primary/75'>
 						<div>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Popular Builds</h2>
-							{filteredBuilds.map((item) => (
+							{popularFilteredBuilds.map((item) => (
 								<div key={item.id} className='flex justify-between w-full'>
 									<Image
 										src={item.class.image}
@@ -129,6 +142,26 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 							<h2 className='p-2 bg-primary/20 rounded-md'>Other Builds</h2>
 							<div>{selectedClass} build 1</div>
 							<div>{selectedClass} build 2</div>
+							{filteredBuilds.map((item) => (
+								<div key={item.id} className='flex justify-between w-full'>
+									<Image
+										src={item.class.image}
+										width={50}
+										height={50}
+										className='h-10 w-10'
+										alt='class image'
+									/>
+									<p>
+										{item.build.spec.name}
+										{item.build.name}
+									</p>
+									<div>
+										{item.build.weapons.map((weapon: any) => (
+											<div key={weapon.weapon.id}>{weapon.weapon.name}</div>
+										))}
+									</div>
+								</div>
+							))}
 						</div>
 					</div>
 				</div>
