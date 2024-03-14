@@ -126,6 +126,7 @@ model BuildWeaponOverclock {
 model metaBuild {
   id          String  @id @default(cuid())
   position    Int
+  popular     Boolean
   buildId     String
   classId     String
   class       Class @relation(fields: [classId], references: [id], onDelete: Cascade)

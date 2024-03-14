@@ -1,5 +1,5 @@
 'use client'
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import Image from 'next/image'
@@ -22,6 +22,17 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 		(typeof classNames)[number] | ''
 	>('')
 	console.log(builds)
+	const [filteredBuilds, setFilteredBuilds] = useState(builds)
+
+	useEffect(() => {
+		if (selectedClass === '') {
+			setFilteredBuilds(builds)
+		} else {
+			setFilteredBuilds(
+				builds.filter((item) => item.class.name === selectedClass)
+			)
+		}
+	}, [selectedClass])
 
 	return (
 		<div className='parent'>
@@ -93,7 +104,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 					<div className='flex flex-col basis-[65%] text-primary/75'>
 						<div>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Popular Builds</h2>
-							{builds.map((item) => (
+							{filteredBuilds.map((item) => (
 								<div key={item.id} className='flex justify-between w-full'>
 									<Image
 										src={item.class.image}
