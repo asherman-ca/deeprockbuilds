@@ -23,6 +23,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 		(typeof classNames)[number] | ''
 	>('')
 	const popularBuilds = builds.filter((item) => item.popular)
+	builds = builds.filter((item) => !item.popular)
 	const [filteredBuilds, setFilteredBuilds] = useState(
 		builds.filter((item) => !item.popular)
 	)
@@ -31,11 +32,10 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 	const [search, setSearch] = useState<string>('')
 
 	useEffect(() => {
-		console.log('search', search)
 		if (search === '') {
 			if (selectedClass === '') {
 				setFilteredBuilds(builds.filter((item) => !item.popular))
-				setPopularFilteredBuilds(builds.filter((item) => item.popular))
+				setPopularFilteredBuilds(popularBuilds)
 			} else {
 				setFilteredBuilds(
 					builds.filter(
@@ -70,24 +70,34 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 				)
 			} else {
 				setFilteredBuilds(
-					builds.filter(
-						(item) =>
-							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
-							(item.build.weapons.some((weapon) =>
-								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
-							) &&
-								item.class.name === selectedClass)
-					)
+					builds.filter((item) => {
+						let nameMatch = item.build.name
+							.toLowerCase()
+							.includes(search.toLowerCase())
+						let weaponMatch = item.build.weapons.some((weapon) =>
+							weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+						)
+						let classMatch = item.class.name === selectedClass
+						if (classMatch && (nameMatch || weaponMatch)) {
+							return true
+						}
+						return false
+					})
 				)
 				setPopularFilteredBuilds(
-					popularBuilds.filter(
-						(item) =>
-							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
-							(item.build.weapons.some((weapon) =>
-								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
-							) &&
-								item.class.name === selectedClass)
-					)
+					popularBuilds.filter((item) => {
+						let nameMatch = item.build.name
+							.toLowerCase()
+							.includes(search.toLowerCase())
+						let weaponMatch = item.build.weapons.some((weapon) =>
+							weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+						)
+						let classMatch = item.class.name === selectedClass
+						if (classMatch && (nameMatch || weaponMatch)) {
+							return true
+						}
+						return false
+					})
 				)
 			}
 		}
