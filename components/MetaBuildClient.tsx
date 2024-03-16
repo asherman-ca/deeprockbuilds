@@ -22,31 +22,75 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 	const [selectedClass, setSelectedClass] = useState<
 		(typeof classNames)[number] | ''
 	>('')
-	console.log(builds)
 	const [filteredBuilds, setFilteredBuilds] = useState(
 		builds.filter((item) => !item.popular)
 	)
 	const [popularFilteredBuilds, setPopularFilteredBuilds] = useState(
 		builds.filter((item) => item.popular)
 	)
+	const [search, setSearch] = useState<string>('')
 
 	useEffect(() => {
-		if (selectedClass === '') {
-			setFilteredBuilds(builds.filter((item) => !item.popular))
-			setPopularFilteredBuilds(builds.filter((item) => item.popular))
+		if (search === '') {
+			if (selectedClass === '') {
+				setFilteredBuilds(builds.filter((item) => !item.popular))
+				setPopularFilteredBuilds(builds.filter((item) => item.popular))
+			} else {
+				setFilteredBuilds(
+					builds.filter(
+						(item) => item.class.name === selectedClass && !item.popular
+					)
+				)
+				setPopularFilteredBuilds(
+					builds.filter(
+						(item) => item.class.name === selectedClass && item.popular
+					)
+				)
+			}
 		} else {
-			setFilteredBuilds(
-				builds.filter(
-					(item) => item.class.name === selectedClass && !item.popular
+			if (selectedClass === '') {
+				setFilteredBuilds((p) =>
+					p.filter(
+						(item) =>
+							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
+							item.build.weapons.some((weapon) =>
+								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+							)
+					)
 				)
-			)
-			setPopularFilteredBuilds(
-				builds.filter(
-					(item) => item.class.name === selectedClass && item.popular
+				setPopularFilteredBuilds((p) =>
+					p.filter(
+						(item) =>
+							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
+							item.build.weapons.some((weapon) =>
+								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+							)
+					)
 				)
-			)
+			} else {
+				setFilteredBuilds((p) =>
+					p.filter(
+						(item) =>
+							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
+							(item.build.weapons.some((weapon) =>
+								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+							) &&
+								item.class.name === selectedClass)
+					)
+				)
+				setPopularFilteredBuilds((p) =>
+					p.filter(
+						(item) =>
+							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
+							(item.build.weapons.some((weapon) =>
+								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+							) &&
+								item.class.name === selectedClass)
+					)
+				)
+			}
 		}
-	}, [selectedClass])
+	}, [search, selectedClass])
 
 	return (
 		<div className='parent'>
@@ -59,6 +103,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 							type='text'
 							placeholder='Search by build or skill...'
 							className='w-full bg-transparent group-focus-within:ring-0 group-focus-within:outline-none text-primary p-0 h-fit'
+							onChange={(e) => setSearch(e.target.value)}
 						/>
 					</div>
 				</div>
