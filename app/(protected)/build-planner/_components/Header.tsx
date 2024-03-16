@@ -17,9 +17,15 @@ interface HeaderProps {
 	classes: any
 	setSpec: (arg: Spec) => void
 	selectedSpec: Spec
+	setWeapons: (arg: any) => void
 }
 
-const Header: FC<HeaderProps> = ({ classes, setSpec, selectedSpec }) => {
+const Header: FC<HeaderProps> = ({
+	classes,
+	setSpec,
+	selectedSpec,
+	setWeapons,
+}) => {
 	return (
 		<div className='flex justify-between'>
 			<div className='flex items-center gap-4'>
@@ -34,6 +40,12 @@ const Header: FC<HeaderProps> = ({ classes, setSpec, selectedSpec }) => {
 					<Select
 						onValueChange={(value: any) => {
 							setSpec(value)
+							setWeapons({
+								1: value.primaryWeapon,
+								2: null,
+								3: null,
+								4: null,
+							})
 						}}
 					>
 						<SelectTrigger className='w-[180px]'>

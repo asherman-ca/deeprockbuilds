@@ -8,6 +8,8 @@ export interface Spec {
 	id: string
 	name: string
 	image: string
+	weapons: Weapon[]
+	primaryWeapon: Weapon
 }
 
 export interface Weapon {
