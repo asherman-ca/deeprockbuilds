@@ -22,15 +22,16 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 	const [selectedClass, setSelectedClass] = useState<
 		(typeof classNames)[number] | ''
 	>('')
+	const popularBuilds = builds.filter((item) => item.popular)
 	const [filteredBuilds, setFilteredBuilds] = useState(
 		builds.filter((item) => !item.popular)
 	)
-	const [popularFilteredBuilds, setPopularFilteredBuilds] = useState(
-		builds.filter((item) => item.popular)
-	)
+	const [popularFilteredBuilds, setPopularFilteredBuilds] =
+		useState(popularBuilds)
 	const [search, setSearch] = useState<string>('')
 
 	useEffect(() => {
+		console.log('search', search)
 		if (search === '') {
 			if (selectedClass === '') {
 				setFilteredBuilds(builds.filter((item) => !item.popular))
@@ -42,15 +43,15 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 					)
 				)
 				setPopularFilteredBuilds(
-					builds.filter(
+					popularBuilds.filter(
 						(item) => item.class.name === selectedClass && item.popular
 					)
 				)
 			}
 		} else {
 			if (selectedClass === '') {
-				setFilteredBuilds((p) =>
-					p.filter(
+				setFilteredBuilds(
+					builds.filter(
 						(item) =>
 							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
 							item.build.weapons.some((weapon) =>
@@ -58,8 +59,8 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 							)
 					)
 				)
-				setPopularFilteredBuilds((p) =>
-					p.filter(
+				setPopularFilteredBuilds(
+					popularBuilds.filter(
 						(item) =>
 							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
 							item.build.weapons.some((weapon) =>
@@ -68,8 +69,8 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 					)
 				)
 			} else {
-				setFilteredBuilds((p) =>
-					p.filter(
+				setFilteredBuilds(
+					builds.filter(
 						(item) =>
 							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
 							(item.build.weapons.some((weapon) =>
@@ -78,8 +79,8 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 								item.class.name === selectedClass)
 					)
 				)
-				setPopularFilteredBuilds((p) =>
-					p.filter(
+				setPopularFilteredBuilds(
+					popularBuilds.filter(
 						(item) =>
 							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
 							(item.build.weapons.some((weapon) =>
@@ -101,7 +102,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 						<HiMagnifyingGlass className='h-5 w-5' />
 						<Input
 							type='text'
-							placeholder='Search by build or skill...'
+							placeholder='Search by build or weapon...'
 							className='w-full bg-transparent group-focus-within:ring-0 group-focus-within:outline-none text-primary p-0 h-fit'
 							onChange={(e) => setSearch(e.target.value)}
 						/>
