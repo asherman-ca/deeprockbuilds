@@ -10,6 +10,8 @@ import {
 } from '@/components/ui/select'
 import Image from 'next/image'
 import { Spec } from '@/schemas/dataSchemas'
+import { Button } from '@/components/ui/button'
+import { HeartIcon, Paperclip } from 'lucide-react'
 
 interface HeaderProps {
 	classes: any
@@ -62,9 +64,14 @@ const Header: FC<HeaderProps> = ({ classes, setSpec, selectedSpec }) => {
 					</p>
 				</div>
 			</div>
-			<div>
-				<button>share</button>
-				<button>save build</button>
+			<div className='flex gap-4 items-center'>
+				<Button variant='ghost' className='gap-2'>
+					<Paperclip className='h-5 w-5' />
+					Share
+				</Button>
+				<Button variant='secondary' className='gap-2'>
+					Save Build
+				</Button>
 			</div>
 		</div>
 	)
