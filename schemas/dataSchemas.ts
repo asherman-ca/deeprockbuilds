@@ -30,3 +30,5 @@ export interface metaBuild {
 	class: Class
 	id: string
 }
+
+export type ClassesSpecsAndWeapons = Class[]
