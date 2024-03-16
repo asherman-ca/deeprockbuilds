@@ -28,3 +28,30 @@ export const getMetaBuilds = async () => {
 		return null
 	}
 }
+
+export const getUserBuilds = async (userId: string) => {
+	try {
+		const builds = await db.build.findMany({
+			where: {
+				userId,
+			},
+			include: {
+				spec: true,
+				weapons: {
+					include: {
+						weapon: true,
+						overclocks: {
+							include: {
+								overclock: true,
+							},
+						},
+					},
+				},
+			},
+		})
+		return builds
+	} catch (e) {
+		console.log(e)
+		return null
+	}
+}

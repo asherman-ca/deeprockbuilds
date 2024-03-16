@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 import Image from 'next/image'
 import { HiMagnifyingGlass } from 'react-icons/hi2'
 import BuildTile from './BuildTile'
+import { Build, metaBuild } from '@/schemas/dataSchemas'
 
 const classNames = ['Gunner', 'Scout', 'Driller', 'Engineer'] as const
 
@@ -15,7 +16,7 @@ interface pageProps {
 		description: string
 		image: string
 	}[]
-	builds: any[]
+	builds: metaBuild[]
 }
 
 const page: FC<pageProps> = ({ classes, builds }) => {

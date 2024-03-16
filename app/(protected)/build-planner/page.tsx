@@ -8,7 +8,7 @@ const page: FC<pageProps> = async ({}) => {
 
 	return (
 		<div className='parent'>
-			<div className='gutters'></div>
+			<div className='gutters'>Client</div>
 		</div>
 	)
 }

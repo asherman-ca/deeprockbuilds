@@ -14,10 +14,10 @@ const Navbar: FC<NavbarProps> = () => {
 	const user = useCurrentUser()
 	const tabs = [
 		{ title: 'Meta Builds', slug: '/' },
-		{ title: 'Tierlist', slug: 'tierlist' },
-		{ title: 'My Builds', slug: 'my-builds' },
-		{ title: 'Build Planner', slug: 'build-planner' },
-		{ title: 'Database', slug: 'database' },
+		{ title: 'Tierlist', slug: '/tierlist' },
+		{ title: 'My Builds', slug: '/my-builds' },
+		{ title: 'Build Planner', slug: '/build-planner' },
+		{ title: 'Database', slug: '/database' },
 	]
 
 	return (
@@ -40,7 +40,7 @@ const Navbar: FC<NavbarProps> = () => {
 							className={cn(
 								'py-2 hover:bg-primary/15 px-5 text-primary/75 hover:text-primary cursor-pointer',
 								{
-									'border-b-2 border-primary': '/' + tab.slug === pathname,
+									'border-b-2 border-primary': tab.slug === pathname,
 								}
 							)}
 						>
