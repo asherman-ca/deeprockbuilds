@@ -64,7 +64,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 				</div>
 
 				<div className='flex gap-8'>
-					<div className='flex basis-[35%]'>
+					<div className='flex basis-[35%] items-start'>
 						<div className='flex flex-col bg-primary-foreground w-full rounded-md'>
 							{classes.map((item, idx) => (
 								<div
@@ -124,8 +124,6 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 						</div>
 						<div className='flex flex-col gap-4'>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Other Builds</h2>
-							<div>{selectedClass} build 1</div>
-							<div>{selectedClass} build 2</div>
 							{filteredBuilds.map((item) => (
 								<BuildTile key={item.id} item={item} />
 							))}
