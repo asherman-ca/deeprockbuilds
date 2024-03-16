@@ -9,6 +9,7 @@ export const getClassesSpecsAndWeapons =
 					specs: {
 						include: {
 							weapons: true,
+							primaryWeapon: true,
 						},
 					},
 				},
