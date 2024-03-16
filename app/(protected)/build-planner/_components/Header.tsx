@@ -59,12 +59,12 @@ const Header: FC<HeaderProps> = ({ classes, setSpec, selectedSpec }) => {
 							})}
 						</SelectContent>
 					</Select>
-					<p className='text-primary/80 text-nowrap'>
+					<p className='text-primary/75 text-nowrap'>
 						DRGS Build Planner Calculator
 					</p>
 				</div>
 			</div>
-			<div className='flex gap-4 items-center'>
+			<div className='flex gap-4 items-center text-primary/75'>
 				<Button variant='ghost' className='gap-2'>
 					<Paperclip className='h-5 w-5' />
 					Share

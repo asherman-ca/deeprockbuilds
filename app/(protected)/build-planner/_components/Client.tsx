@@ -23,13 +23,13 @@ const Client: FC<ClientProps> = ({ data }) => {
 
 	return (
 		<div className='parent'>
-			<div className='gutters py-4 space-y-4'>
+			<div className='gutters py-4 space-y-8'>
 				<Header
 					selectedSpec={selectedSpec}
 					setSpec={setSelectedSpec}
 					classes={data}
 				/>
-				<div className='flex flex-col gap-2'>
+				<div className='flex flex-col gap-4'>
 					{Object.keys(selectedWeapons).map((key: string) => {
 						return (
 							<div className='flex gap-2 items-center'>
@@ -38,12 +38,14 @@ const Client: FC<ClientProps> = ({ data }) => {
 								) : (
 									<Button
 										variant='ghost'
-										className='h-10 w-10 border-primary border rounded-md'
+										className='h-16 w-16 border-primary border rounded-md'
 									/>
 								)}
-								<div>
-									<p>Weapon {key}</p>
-									<p>{selectedWeapons[key] ? 'selected' : 'Empty'}</p>
+								<div className='flex flex-col'>
+									<p className='text-primary/75'>Weapon {key}</p>
+									<p>
+										{selectedWeapons[key] ? selectedWeapons[key].name : 'Empty'}
+									</p>
 								</div>
 							</div>
 						)
