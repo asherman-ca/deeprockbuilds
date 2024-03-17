@@ -82,6 +82,7 @@ model Overclock {
   image       String
   weapons     Weapon[]
   buildweaponoverclocks BuildWeaponOverclock[]
+  unstable    Boolean @default(false)
 }
 
 model Build {

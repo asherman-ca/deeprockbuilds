@@ -26,6 +26,7 @@ export interface Overclock {
 	name: string
 	image: string
 	description: string
+	unstable: boolean
 }
 
 export interface Build {

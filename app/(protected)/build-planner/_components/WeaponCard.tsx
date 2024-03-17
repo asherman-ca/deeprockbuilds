@@ -47,7 +47,9 @@ const WeaponCard: FC<WeaponCardProps> = ({
 				</div>
 			</div>
 			<div className='flex gap-2'>
-				{selectedWeapons[index]!.overclocks.map((c: Overclock) => (
+				{selectedWeapons[index]!.overclocks.sort(
+					(a: any, b: any) => a.unstable - b.unstable
+				).map((c: Overclock) => (
 					<TooltipProvider key={c.id}>
 						<Tooltip>
 							<TooltipTrigger asChild>
