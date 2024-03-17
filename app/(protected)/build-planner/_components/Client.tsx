@@ -15,14 +15,15 @@ type selectedWeaponType = {
 }
 
 const Client: FC<ClientProps> = ({ data }) => {
-	console.log(data)
 	const [selectedSpec, setSelectedSpec] = useState<Spec>(data![0].specs[0])
 	const [selectedWeapons, setSelectedWeapons] = useState<selectedWeaponType>({
-		1: selectedSpec.primaryWeapon,
+		1: { ...selectedSpec.primaryWeapon, selectedOverclocks: [] },
 		2: null,
 		3: null,
 		4: null,
 	})
+
+	console.log(selectedWeapons)
 
 	return (
 		<div className='parent'>
@@ -57,15 +58,61 @@ const Client: FC<ClientProps> = ({ data }) => {
 									</div>
 									<div className='flex gap-2'>
 										{selectedWeapons[key].overclocks.map((c: any) => (
-											<Image
-												src={c.image}
-												alt='overclock image'
-												height={40}
-												width={40}
-												className={cn('p-1 border-primary rounded-md border', {
-													'border-[#DA8200]': c.name === 'Empty',
-												})}
-											/>
+											<Button
+												className={cn(
+													'p-1 border-primary rounded-md border cursor-pointer bg-transparent',
+													{
+														'border-[#DA8200]':
+															selectedWeapons[key].selectedOverclocks.includes(
+																c
+															),
+													}
+												)}
+												disabled={
+													selectedWeapons[key].selectedOverclocks.length >= 3 &&
+													!selectedWeapons[key].selectedOverclocks.includes(c)
+												}
+												onClick={() => {
+													if (
+														selectedWeapons[key].selectedOverclocks.includes(c)
+													) {
+														setSelectedWeapons((prev) => {
+															return {
+																...prev,
+																[key]: {
+																	...prev[key],
+																	selectedOverclocks: prev[
+																		key
+																	].selectedOverclocks.filter(
+																		(i: any) => i !== c
+																	),
+																},
+															}
+														})
+													} else {
+														setSelectedWeapons((prev) => {
+															return {
+																...prev,
+																[key]: {
+																	...prev[key],
+																	selectedOverclocks: [
+																		...prev[key].selectedOverclocks,
+																		c,
+																	],
+																},
+															}
+														})
+													}
+												}}
+											>
+												<Image
+													src={c.image}
+													alt='overclock image'
+													height={40}
+													width={40}
+													className='p-1'
+												/>
+											</Button>
 										))}
 									</div>
 								</div>
