@@ -36,18 +36,18 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 	})
 	return (
 		<Dialog>
-			<div className='flex gap-4 items-center'>
-				<DialogTrigger asChild>
+			<DialogTrigger asChild>
+				<div className='flex gap-4 items-center'>
 					<Button
 						variant='ghost'
 						className='h-16 w-16 border-primary border rounded-md'
 					/>
-				</DialogTrigger>
-				<div className='flex flex-col'>
-					<p className='text-primary/75'>Weapon {index}</p>
-					<p>Empty</p>
+					<div className='flex flex-col'>
+						<p className='text-primary/75'>Weapon {index}</p>
+						<p>Empty</p>
+					</div>
 				</div>
-			</div>
+			</DialogTrigger>
 			<DialogContent className='bg-primary/20'>
 				<DialogHeader>
 					<DialogTitle>Weapon Selection</DialogTitle>
@@ -57,9 +57,8 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 					{remainingWeapons.map((w) => (
 						<TooltipProvider key={w.id}>
 							<Tooltip>
-								<TooltipTrigger asChild>
-									<Button
-										variant='ghost'
+								<TooltipTrigger tabIndex={-1}>
+									<div
 										onClick={() => {
 											setSelectedWeapons((prev) => {
 												return {
@@ -75,7 +74,7 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 											width={50}
 											alt='weapon-image'
 										/>
-									</Button>
+									</div>
 								</TooltipTrigger>
 								<TooltipContent
 									side='bottom'
