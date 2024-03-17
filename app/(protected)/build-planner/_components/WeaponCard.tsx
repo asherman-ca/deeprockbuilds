@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { Overclock } from '@/schemas/dataSchemas'
+import { Overclock, Weapon } from '@/schemas/dataSchemas'
 import Image from 'next/image'
 import { FC, SetStateAction } from 'react'
 import {
@@ -49,74 +49,83 @@ const WeaponCard: FC<WeaponCardProps> = ({
 			<div className='flex gap-2'>
 				{selectedWeapons[index]!.overclocks.sort(
 					(a: any, b: any) => a.unstable - b.unstable
-				).map((c: Overclock) => (
-					<TooltipProvider key={c.id}>
-						<Tooltip>
-							<TooltipTrigger asChild>
-								<Button
-									className={cn(
-										'p-1 border-primary rounded-md border cursor-pointer bg-transparent hover:bg-primary/20',
-										{
-											'border-[#DA8200]':
-												selectedWeapons[index]!.selectedOverclocks.includes(c),
-										}
-									)}
-									disabled={
-										selectedWeapons[index]!.selectedOverclocks.length >= 3 &&
-										!selectedWeapons[index]!.selectedOverclocks.includes(c)
-									}
-									onClick={() => {
-										if (
-											selectedWeapons[index]!.selectedOverclocks.includes(c)
-										) {
-											setSelectedWeapons((prev: typeof selectedWeapons) => {
-												return {
-													...prev,
-													[index]: {
-														...prev[index],
-														selectedOverclocks: prev[
-															index
-														].selectedOverclocks.filter(
-															(i: Overclock) => i !== c
-														),
-													},
-												}
-											})
-										} else {
-											setSelectedWeapons((prev: typeof selectedWeapons) => {
-												return {
-													...prev,
-													[index]: {
-														...prev[index],
-														selectedOverclocks: [
-															...prev[index].selectedOverclocks,
-															c,
-														],
-													},
-												}
-											})
-										}
-									}}
+				).map((c: Overclock) => {
+					let overclocksFull =
+						selectedWeapons[index]!.selectedOverclocks.length >= 3 &&
+						!selectedWeapons[index]!.selectedOverclocks.includes(c)
+					let unstablesFull =
+						c.unstable &&
+						selectedWeapons[index].selectedOverclocks.some(
+							(w: any) => w.unstable && w.id !== c.id
+						)
+					return (
+						<TooltipProvider key={c.id}>
+							<Tooltip>
+								<TooltipTrigger asChild>
+									<Button
+										className={cn(
+											'p-1 border-primary rounded-md border cursor-pointer bg-transparent hover:bg-primary/20',
+											{
+												'border-[#DA8200]':
+													selectedWeapons[index]!.selectedOverclocks.includes(
+														c
+													),
+											}
+										)}
+										disabled={overclocksFull || unstablesFull}
+										onClick={() => {
+											if (
+												selectedWeapons[index]!.selectedOverclocks.includes(c)
+											) {
+												setSelectedWeapons((prev: typeof selectedWeapons) => {
+													return {
+														...prev,
+														[index]: {
+															...prev[index],
+															selectedOverclocks: prev[
+																index
+															].selectedOverclocks.filter(
+																(i: Overclock) => i !== c
+															),
+														},
+													}
+												})
+											} else {
+												setSelectedWeapons((prev: typeof selectedWeapons) => {
+													return {
+														...prev,
+														[index]: {
+															...prev[index],
+															selectedOverclocks: [
+																...prev[index].selectedOverclocks,
+																c,
+															],
+														},
+													}
+												})
+											}
+										}}
+									>
+										<Image
+											src={c!.image}
+											alt='overclock image'
+											height={40}
+											width={40}
+											className='p-1'
+										/>
+									</Button>
+								</TooltipTrigger>
+								<TooltipContent
+									side='bottom'
+									className='border border-primary p-2 w-[200px] space-y-1'
 								>
-									<Image
-										src={c!.image}
-										alt='overclock image'
-										height={40}
-										width={40}
-										className='p-1'
-									/>
-								</Button>
-							</TooltipTrigger>
-							<TooltipContent
-								side='bottom'
-								className='border border-primary p-2 w-[200px] space-y-1'
-							>
-								<p className='font-bold'>{c.name}</p>
-								<p>{c.description}</p>
-							</TooltipContent>
-						</Tooltip>
-					</TooltipProvider>
-				))}
+									<p className='font-bold'>{c.name}</p>
+									<p>{c.description}</p>
+								</TooltipContent>
+							</Tooltip>
+						</TooltipProvider>
+					)
+				})}
 			</div>
 		</div>
 	)

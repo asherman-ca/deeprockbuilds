@@ -36,18 +36,18 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 	})
 	return (
 		<Dialog>
-			<DialogTrigger asChild>
-				<div className='flex gap-4 items-center'>
+			<div className='flex gap-4 items-center'>
+				<DialogTrigger asChild>
 					<Button
 						variant='ghost'
 						className='h-16 w-16 border-primary border rounded-md'
 					/>
-					<div className='flex flex-col'>
-						<p className='text-primary/75'>Weapon {index}</p>
-						<p>Empty</p>
-					</div>
+				</DialogTrigger>
+				<div className='flex flex-col'>
+					<p className='text-primary/75'>Weapon {index}</p>
+					<p>Empty</p>
 				</div>
-			</DialogTrigger>
+			</div>
 			<DialogContent className='bg-primary/20'>
 				<DialogHeader>
 					<DialogTitle>Weapon Selection</DialogTitle>
