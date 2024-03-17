@@ -9,13 +9,17 @@ interface ClientProps {
 	data: Class[] | null | any
 }
 
-type selectedWeaponType = {
-	[key: string]: (Weapon & { selectedOverclocks: Overclock[] }) | null
+export type selectedWeaponType =
+	| (Weapon & { selectedOverclocks: Overclock[] })
+	| null
+
+export type selectedWeaponsType = {
+	[key: string]: selectedWeaponType
 }
 
 const Client: FC<ClientProps> = ({ data }) => {
 	const [selectedSpec, setSelectedSpec] = useState<Spec>(data![0].specs[0])
-	const [selectedWeapons, setSelectedWeapons] = useState<selectedWeaponType>({
+	const [selectedWeapons, setSelectedWeapons] = useState<selectedWeaponsType>({
 		1: { ...selectedSpec.primaryWeapon, selectedOverclocks: [] },
 		2: null,
 		3: null,
@@ -33,7 +37,7 @@ const Client: FC<ClientProps> = ({ data }) => {
 				/>
 				<div className='flex flex-col gap-4 bg-primary/10 p-4 rounded-md'>
 					{Object.keys(selectedWeapons).map((key: string) => {
-						if (key === '1') {
+						if (selectedWeapons[key]) {
 							return (
 								<WeaponCard
 									key={key}
@@ -45,21 +49,13 @@ const Client: FC<ClientProps> = ({ data }) => {
 						} else {
 							return (
 								<div className='flex gap-4 items-center' key={key}>
-									{selectedWeapons[key] ? (
-										<Button>'Change'</Button>
-									) : (
-										<Button
-											variant='ghost'
-											className='h-16 w-16 border-primary border rounded-md'
-										/>
-									)}
+									<Button
+										variant='ghost'
+										className='h-16 w-16 border-primary border rounded-md'
+									/>
 									<div className='flex flex-col'>
 										<p className='text-primary/75'>Weapon {key}</p>
-										<p>
-											{selectedWeapons[key]
-												? selectedWeapons[key]!.name
-												: 'Empty'}
-										</p>
+										<p>Empty</p>
 									</div>
 								</div>
 							)

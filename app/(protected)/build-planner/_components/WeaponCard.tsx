@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { Overclock } from '@/schemas/dataSchemas'
 import Image from 'next/image'
 import { FC } from 'react'
+import { selectedWeaponType } from './Client'
 
 interface WeaponCardProps {
 	selectedWeapons: any
@@ -32,7 +34,7 @@ const WeaponCard: FC<WeaponCardProps> = ({
 				</div>
 			</div>
 			<div className='flex gap-2'>
-				{selectedWeapons[index]!.overclocks.map((c: any) => (
+				{selectedWeapons[index]!.overclocks.map((c: selectedWeaponType) => (
 					<Button
 						className={cn(
 							'p-1 border-primary rounded-md border cursor-pointer bg-transparent',
@@ -47,19 +49,19 @@ const WeaponCard: FC<WeaponCardProps> = ({
 						}
 						onClick={() => {
 							if (selectedWeapons[index]!.selectedOverclocks.includes(c)) {
-								setSelectedWeapons((prev: any) => {
+								setSelectedWeapons((prev: typeof selectedWeapons) => {
 									return {
 										...prev,
 										[index]: {
 											...prev[index],
 											selectedOverclocks: prev[index].selectedOverclocks.filter(
-												(i: any) => i !== c
+												(i: Overclock) => i !== c
 											),
 										},
 									}
 								})
 							} else {
-								setSelectedWeapons((prev: any) => {
+								setSelectedWeapons((prev: typeof selectedWeapons) => {
 									return {
 										...prev,
 										[index]: {
@@ -75,7 +77,7 @@ const WeaponCard: FC<WeaponCardProps> = ({
 						}}
 					>
 						<Image
-							src={c.image}
+							src={c!.image}
 							alt='overclock image'
 							height={40}
 							width={40}
