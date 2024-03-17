@@ -2,8 +2,8 @@
 import { Class, Overclock, Spec, Weapon } from '@/schemas/dataSchemas'
 import { FC, useState } from 'react'
 import Header from './Header'
-import { Button } from '@/components/ui/button'
 import WeaponCard from './WeaponCard'
+import WeaponSelect from './WeaponSelect'
 
 interface ClientProps {
 	data: Class[] | null | any
@@ -48,16 +48,13 @@ const Client: FC<ClientProps> = ({ data }) => {
 							)
 						} else {
 							return (
-								<div className='flex gap-4 items-center' key={key}>
-									<Button
-										variant='ghost'
-										className='h-16 w-16 border-primary border rounded-md'
-									/>
-									<div className='flex flex-col'>
-										<p className='text-primary/75'>Weapon {key}</p>
-										<p>Empty</p>
-									</div>
-								</div>
+								<WeaponSelect
+									key={key}
+									index={key}
+									selectedWeapons={selectedWeapons}
+									setSelectedWeapons={setSelectedWeapons}
+									selectedSpec={selectedSpec}
+								/>
 							)
 						}
 					})}

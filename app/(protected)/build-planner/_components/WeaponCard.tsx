@@ -2,19 +2,19 @@ import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { Overclock } from '@/schemas/dataSchemas'
 import Image from 'next/image'
-import { FC } from 'react'
-import { selectedWeaponType } from './Client'
+import { FC, SetStateAction } from 'react'
 import {
 	Tooltip,
 	TooltipContent,
 	TooltipProvider,
 	TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { selectedWeaponsType } from './Client'
 
 interface WeaponCardProps {
 	selectedWeapons: any
 	index: string
-	setSelectedWeapons: (arg: any) => void
+	setSelectedWeapons: (arg: SetStateAction<selectedWeaponsType>) => void
 }
 
 const WeaponCard: FC<WeaponCardProps> = ({
@@ -22,7 +22,6 @@ const WeaponCard: FC<WeaponCardProps> = ({
 	selectedWeapons,
 	index,
 }) => {
-	console.log('weapons', selectedWeapons)
 	return (
 		<div className='flex flex-col gap-4' key={index}>
 			<div className='flex gap-4 items-center'>
@@ -32,12 +31,19 @@ const WeaponCard: FC<WeaponCardProps> = ({
 					height={50}
 					width={50}
 					alt='weapon-image'
+					onClick={() => {
+						if (index === '1') return
+						setSelectedWeapons((prev: typeof selectedWeapons) => {
+							return {
+								...prev,
+								[index]: null,
+							}
+						})
+					}}
 				/>
 				<div className='flex flex-col'>
 					<p className='text-primary/75'>Weapon {index}</p>
-					<p>
-						{selectedWeapons[index] ? selectedWeapons[index]!.name : 'Empty'}
-					</p>
+					<p>{selectedWeapons[index]!.name}</p>
 				</div>
 			</div>
 			<div className='flex gap-2'>

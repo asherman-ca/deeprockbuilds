@@ -16,6 +16,8 @@ export interface Weapon {
 	id: string
 	name: string
 	image: string
+	description: string
+	stats: string
 	overclocks: Overclock[]
 }
 

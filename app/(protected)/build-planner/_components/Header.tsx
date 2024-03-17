@@ -11,7 +11,7 @@ import {
 import Image from 'next/image'
 import { Spec } from '@/schemas/dataSchemas'
 import { Button } from '@/components/ui/button'
-import { HeartIcon, Paperclip } from 'lucide-react'
+import { Paperclip } from 'lucide-react'
 
 interface HeaderProps {
 	classes: any
