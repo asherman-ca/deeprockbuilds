@@ -1,9 +1,10 @@
 'use client'
 import { Class, Overclock, Spec, Weapon } from '@/schemas/dataSchemas'
-import { FC, useState } from 'react'
+import { FC, useState, useTransition } from 'react'
 import Header from './Header'
 import WeaponCard from './WeaponCard'
 import WeaponSelect from './WeaponSelect'
+import { newBuild } from '@/actions/build'
 
 interface ClientProps {
 	data: Class[] | null | any
@@ -26,9 +27,22 @@ const Client: FC<ClientProps> = ({ data }) => {
 		4: null,
 	})
 
+	const [isPending, startTransition] = useTransition()
+
+	const onSubmit = (data) => {
+		console.log('hits')
+		startTransition(() => {
+			newBuild('').then((res) => {
+				console.log(res)
+			})
+		})
+		// newBuild(data).then((res) => res)
+	}
+
 	return (
 		<div className='parent'>
 			<div className='gutters py-4 space-y-4'>
+				<button onClick={onSubmit}>submit</button>
 				<Header
 					selectedSpec={selectedSpec}
 					setSpec={setSelectedSpec}
