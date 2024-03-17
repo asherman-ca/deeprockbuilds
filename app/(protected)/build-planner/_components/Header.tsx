@@ -41,7 +41,7 @@ const Header: FC<HeaderProps> = ({
 						onValueChange={(value: any) => {
 							setSpec(value)
 							setWeapons({
-								1: value.primaryWeapon,
+								1: { ...value.primaryWeapon, selectedOverclocks: [] },
 								2: null,
 								3: null,
 								4: null,

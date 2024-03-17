@@ -22,6 +22,7 @@ const WeaponCard: FC<WeaponCardProps> = ({
 	selectedWeapons,
 	index,
 }) => {
+	console.log('weapons', selectedWeapons)
 	return (
 		<div className='flex flex-col gap-4' key={index}>
 			<div className='flex gap-4 items-center'>
