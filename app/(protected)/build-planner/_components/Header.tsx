@@ -54,13 +54,14 @@ const Header: FC<HeaderProps> = ({
 						<SelectContent>
 							{classes.map((c: any) => {
 								return (
-									<SelectGroup>
+									<SelectGroup key={c.id}>
 										<SelectLabel className='p-2'>{c.name}</SelectLabel>
 										{c.specs.map((s: any) => {
 											return (
 												<SelectItem
 													className='p-2 py-1 cursor-pointer'
 													value={s}
+													key={s.id}
 												>
 													{s.name}
 												</SelectItem>

@@ -8,8 +8,16 @@ export const getClassesSpecsAndWeapons =
 				include: {
 					specs: {
 						include: {
-							weapons: true,
-							primaryWeapon: true,
+							weapons: {
+								include: {
+									overclocks: true,
+								},
+							},
+							primaryWeapon: {
+								include: {
+									overclocks: true,
+								},
+							},
 						},
 					},
 				},
