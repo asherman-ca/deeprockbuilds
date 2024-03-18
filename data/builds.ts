@@ -22,7 +22,6 @@ export const getMetaBuilds = async () => {
 				},
 			},
 		})
-		console.log('builds', builds)
 		return builds
 	} catch (e) {
 		console.log(e)
@@ -51,6 +50,33 @@ export const getUserBuilds = async (userId: string) => {
 			},
 		})
 		return builds
+	} catch (e) {
+		console.log(e)
+		return null
+	}
+}
+
+export const getBuildById = async (id: string) => {
+	try {
+		const build = await db.build.findUnique({
+			where: {
+				id,
+			},
+			include: {
+				spec: true,
+				weapons: {
+					include: {
+						weapon: true,
+						overclocks: {
+							include: {
+								overclock: true,
+							},
+						},
+					},
+				},
+			},
+		})
+		return build
 	} catch (e) {
 		console.log(e)
 		return null
