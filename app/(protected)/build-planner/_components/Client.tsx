@@ -20,6 +20,7 @@ export type selectedWeaponsType = {
 }
 
 const Client: FC<ClientProps> = ({ data }) => {
+	const [buildName, setBuildName] = useState<string>('')
 	const [selectedSpec, setSelectedSpec] = useState<Spec>(data![0].specs[0])
 	const [selectedWeapons, setSelectedWeapons] = useState<selectedWeaponsType>({
 		1: { ...selectedSpec.primaryWeapon, selectedOverclocks: [] },
@@ -31,9 +32,10 @@ const Client: FC<ClientProps> = ({ data }) => {
 	const [isPending, startTransition] = useTransition()
 
 	const onSubmit = () => {
+		console.log('name', buildName)
 		startTransition(() => {
 			newBuild({
-				name: 'test name',
+				name: buildName,
 				description: 'test description',
 				spec: selectedSpec,
 				weapons: selectedWeapons,
@@ -51,6 +53,9 @@ const Client: FC<ClientProps> = ({ data }) => {
 					setSpec={setSelectedSpec}
 					setWeapons={setSelectedWeapons}
 					classes={data}
+					onSubmit={onSubmit}
+					setBuildName={setBuildName}
+					buildName={buildName}
 				/>
 				<div className='flex flex-col gap-4 bg-primary/10 p-4 rounded-md'>
 					{Object.keys(selectedWeapons).map((key: string) => {

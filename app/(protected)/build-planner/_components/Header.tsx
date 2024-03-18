@@ -8,16 +8,28 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from '@/components/ui/dialog'
 import Image from 'next/image'
 import { Spec } from '@/schemas/dataSchemas'
 import { Button } from '@/components/ui/button'
 import { Paperclip } from 'lucide-react'
+import { Input } from '@/components/ui/input'
 
 interface HeaderProps {
 	classes: any
 	setSpec: (arg: Spec) => void
 	selectedSpec: Spec
 	setWeapons: (arg: any) => void
+	onSubmit?: () => void
+	setBuildName?: (arg: string) => void
+	buildName: string
 }
 
 const Header: FC<HeaderProps> = ({
@@ -25,6 +37,9 @@ const Header: FC<HeaderProps> = ({
 	setSpec,
 	selectedSpec,
 	setWeapons,
+	onSubmit,
+	setBuildName,
+	buildName,
 }) => {
 	return (
 		<div className='flex justify-between'>
@@ -82,9 +97,33 @@ const Header: FC<HeaderProps> = ({
 					<Paperclip className='h-5 w-5' />
 					Share
 				</Button>
-				<Button variant='secondary' className='gap-2'>
-					Save Build
-				</Button>
+				<Dialog>
+					<DialogTrigger asChild>
+						<Button variant='secondary' className='gap-2'>
+							Save Build
+						</Button>
+					</DialogTrigger>
+					<DialogContent>
+						<DialogHeader>
+							<DialogTitle>Create & Save Build</DialogTitle>
+							<DialogDescription>
+								Name your {selectedSpec.name} Build
+							</DialogDescription>
+						</DialogHeader>
+						<Input
+							placeholder='Build Name...'
+							// @ts-ignore
+							onChange={(e) => setBuildName(e.target.value)}
+						/>
+						<Button
+							variant='secondary'
+							disabled={buildName === ''}
+							onClick={onSubmit}
+						>
+							Create Build
+						</Button>
+					</DialogContent>
+				</Dialog>
 			</div>
 		</div>
 	)

@@ -30,11 +30,31 @@ export const newBuild = async (payload: any) => {
 		},
 	}
 
-	console.log(dbPayload)
-
-	const build = await db.build.create({
+	const { id: buildId } = await db.build.create({
 		data: dbPayload,
 	})
+
+	Object.values(payload.weapons)
+		.filter((w) => w !== null)
+		.forEach(async (w: any) => {
+			const weaponRes = await db.buildWeapon.create({
+				data: {
+					buildId,
+					weaponId: w.id,
+				},
+			})
+
+			const overClocks = w.selectedOverclocks.map((o: any) => {
+				return {
+					overclockId: o.id,
+					buildWeaponId: weaponRes.id,
+				}
+			})
+
+			await db.buildWeaponOverclock.createMany({
+				data: overClocks,
+			})
+		})
 
 	return { success: 'success' }
 }
