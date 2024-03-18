@@ -29,10 +29,15 @@ const Client: FC<ClientProps> = ({ data }) => {
 
 	const [isPending, startTransition] = useTransition()
 
-	const onSubmit = (data) => {
+	const onSubmit = () => {
 		console.log('hits')
 		startTransition(() => {
-			newBuild('').then((res) => {
+			newBuild({
+				name: 'test name',
+				description: 'test description',
+				spec: selectedSpec,
+				weapons: selectedWeapons,
+			}).then((res) => {
 				console.log(res)
 			})
 		})
