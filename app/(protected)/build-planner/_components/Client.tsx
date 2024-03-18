@@ -6,6 +6,7 @@ import Header from './Header'
 import WeaponCard from './WeaponCard'
 import WeaponSelect from './WeaponSelect'
 import { newBuild } from '@/actions/build'
+import { useRouter } from 'next/navigation'
 
 interface ClientProps {
 	data: Class[] | null | any
@@ -20,6 +21,7 @@ export type selectedWeaponsType = {
 }
 
 const Client: FC<ClientProps> = ({ data }) => {
+	const router = useRouter()
 	const [buildName, setBuildName] = useState<string>('')
 	const [selectedSpec, setSelectedSpec] = useState<Spec>(data![0].specs[0])
 	const [selectedWeapons, setSelectedWeapons] = useState<selectedWeaponsType>({
@@ -32,7 +34,6 @@ const Client: FC<ClientProps> = ({ data }) => {
 	const [isPending, startTransition] = useTransition()
 
 	const onSubmit = () => {
-		console.log('name', buildName)
 		startTransition(() => {
 			newBuild({
 				name: buildName,
@@ -41,6 +42,7 @@ const Client: FC<ClientProps> = ({ data }) => {
 				weapons: selectedWeapons,
 			}).then((res) => {
 				console.log(res)
+				router.push(`/builds/${res.buildId}`)
 			})
 		})
 	}
@@ -56,6 +58,7 @@ const Client: FC<ClientProps> = ({ data }) => {
 					onSubmit={onSubmit}
 					setBuildName={setBuildName}
 					buildName={buildName}
+					isPending={isPending}
 				/>
 				<div className='flex flex-col gap-4 bg-primary/10 p-4 rounded-md'>
 					{Object.keys(selectedWeapons).map((key: string) => {

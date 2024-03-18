@@ -56,5 +56,5 @@ export const newBuild = async (payload: any) => {
 			})
 		})
 
-	return { success: 'success' }
+	return { success: 'success', buildId: buildId }
 }

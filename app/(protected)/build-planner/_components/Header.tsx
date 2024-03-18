@@ -30,6 +30,7 @@ interface HeaderProps {
 	onSubmit?: () => void
 	setBuildName?: (arg: string) => void
 	buildName: string
+	isPending: boolean
 }
 
 const Header: FC<HeaderProps> = ({
@@ -40,6 +41,7 @@ const Header: FC<HeaderProps> = ({
 	onSubmit,
 	setBuildName,
 	buildName,
+	isPending,
 }) => {
 	return (
 		<div className='flex justify-between'>
@@ -117,10 +119,10 @@ const Header: FC<HeaderProps> = ({
 						/>
 						<Button
 							variant='secondary'
-							disabled={buildName === ''}
+							disabled={buildName === '' || isPending}
 							onClick={onSubmit}
 						>
-							Create Build
+							{isPending ? 'Creating' : 'Create'} Build
 						</Button>
 					</DialogContent>
 				</Dialog>
