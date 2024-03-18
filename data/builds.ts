@@ -22,6 +22,7 @@ export const getMetaBuilds = async () => {
 				},
 			},
 		})
+		console.log('builds', builds)
 		return builds
 	} catch (e) {
 		console.log(e)

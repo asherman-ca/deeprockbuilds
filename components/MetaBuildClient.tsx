@@ -20,6 +20,7 @@ interface pageProps {
 }
 
 const page: FC<pageProps> = ({ classes, builds }) => {
+	console.log('builds', builds)
 	const [selectedClass, setSelectedClass] = useState<
 		(typeof classNames)[number] | ''
 	>('')

@@ -1,4 +1,5 @@
 'use client'
+
 import { Class, Overclock, Spec, Weapon } from '@/schemas/dataSchemas'
 import { FC, useState, useTransition } from 'react'
 import Header from './Header'
@@ -30,7 +31,6 @@ const Client: FC<ClientProps> = ({ data }) => {
 	const [isPending, startTransition] = useTransition()
 
 	const onSubmit = () => {
-		console.log('hits')
 		startTransition(() => {
 			newBuild({
 				name: 'test name',
@@ -41,18 +41,16 @@ const Client: FC<ClientProps> = ({ data }) => {
 				console.log(res)
 			})
 		})
-		// newBuild(data).then((res) => res)
 	}
 
 	return (
 		<div className='parent'>
 			<div className='gutters py-4 space-y-4'>
-				<button onClick={onSubmit}>submit</button>
 				<Header
 					selectedSpec={selectedSpec}
 					setSpec={setSelectedSpec}
-					classes={data}
 					setWeapons={setSelectedWeapons}
+					classes={data}
 				/>
 				<div className='flex flex-col gap-4 bg-primary/10 p-4 rounded-md'>
 					{Object.keys(selectedWeapons).map((key: string) => {
