@@ -55,7 +55,7 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 				</DialogHeader>
 				<div>
 					{remainingWeapons.map((w) => (
-						<TooltipProvider key={w.id}>
+						<TooltipProvider delayDuration={100} key={w.id}>
 							<Tooltip>
 								<TooltipTrigger tabIndex={-1}>
 									<div

@@ -1,15 +1,19 @@
 'use client'
 
-import { Class, Overclock, Spec, Weapon } from '@/schemas/dataSchemas'
+import { Artifact, Class, Overclock, Spec, Weapon } from '@/schemas/dataSchemas'
 import { FC, useState, useTransition } from 'react'
 import Header from './Header'
 import WeaponCard from './WeaponCard'
 import WeaponSelect from './WeaponSelect'
 import { newBuild } from '@/actions/build'
 import { useRouter } from 'next/navigation'
+import Image from 'next/image'
+import { Button } from '@/components/ui/button'
+import ArtifactSelect from './ArtifactSelect'
 
 interface ClientProps {
 	data: Class[] | null | any
+	artifacts: Artifact[] | null
 }
 
 export type selectedWeaponType =
@@ -20,7 +24,7 @@ export type selectedWeaponsType = {
 	[key: string]: selectedWeaponType
 }
 
-const Client: FC<ClientProps> = ({ data }) => {
+const Client: FC<ClientProps> = ({ data, artifacts }) => {
 	const router = useRouter()
 	const [buildName, setBuildName] = useState<string>('')
 	const [selectedSpec, setSelectedSpec] = useState<Spec>(data![0].specs[0])
@@ -30,6 +34,7 @@ const Client: FC<ClientProps> = ({ data }) => {
 		3: null,
 		4: null,
 	})
+	const [selectedArtifacts, setSelectedArtifacts] = useState<Artifact[]>([])
 
 	const [isPending, startTransition] = useTransition()
 
@@ -61,6 +66,7 @@ const Client: FC<ClientProps> = ({ data }) => {
 					isPending={isPending}
 				/>
 				<div className='flex flex-col gap-4 bg-primary/10 p-4 rounded-md'>
+					<p className='font-semibold'>Weapons:</p>
 					{Object.keys(selectedWeapons).map((key: string) => {
 						if (selectedWeapons[key]) {
 							return (
@@ -83,6 +89,14 @@ const Client: FC<ClientProps> = ({ data }) => {
 							)
 						}
 					})}
+					<div className='flex flex-col gap-4'>
+						<p className='font-semibold'>Artifacts:</p>
+						<ArtifactSelect
+							artifacts={artifacts!}
+							selectedArtifacts={selectedArtifacts}
+							setSelectedArtifacts={setSelectedArtifacts}
+						/>
+					</div>
 				</div>
 			</div>
 		</div>

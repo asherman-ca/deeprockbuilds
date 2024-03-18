@@ -59,7 +59,7 @@ const WeaponCard: FC<WeaponCardProps> = ({
 							(w: any) => w.unstable && w.id !== c.id
 						)
 					return (
-						<TooltipProvider key={c.id}>
+						<TooltipProvider delayDuration={100} key={c.id}>
 							<Tooltip>
 								<TooltipTrigger asChild>
 									<Button

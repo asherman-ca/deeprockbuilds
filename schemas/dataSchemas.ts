@@ -44,4 +44,11 @@ export interface metaBuild {
 	id: string
 }
 
+export interface Artifact {
+	id: string
+	name: string
+	image: string
+	description: string
+}
+
 export type ClassesSpecsAndWeapons = Class[]

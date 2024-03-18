@@ -99,6 +99,7 @@ model Build {
   updatedAt   DateTime @updatedAt
   weapons     BuildWeapon[]
   metaBuilds  metaBuild[]
+  artifacts   Artifact[]
 }
 
 model BuildWeapon {
@@ -132,4 +133,12 @@ model metaBuild {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   build       Build @relation(fields: [buildId], references: [id], onDelete: Cascade)
+}
+
+model Artifact {
+  id          String  @id @default(cuid())
+  name        String
+  description String
+  image       String
+  builds      Build[]
 }
