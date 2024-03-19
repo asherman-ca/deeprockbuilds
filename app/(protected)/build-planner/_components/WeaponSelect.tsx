@@ -58,17 +58,22 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 					))}
 				</div>
 			</div>
-			<DialogContent className='bg-primary/20'>
+			<DialogContent className='bg-secondary'>
 				<DialogHeader>
 					<DialogTitle>Weapon Selection</DialogTitle>
 					<DialogDescription>Select Weapon Slot {index}</DialogDescription>
 				</DialogHeader>
-				<div>
+				<div className='flex gap-2'>
 					{remainingWeapons.map((w) => (
 						<TooltipProvider delayDuration={100} key={w.id}>
 							<Tooltip>
-								<TooltipTrigger tabIndex={-1}>
-									<div
+								<TooltipTrigger tabIndex={-1} asChild>
+									<Image
+										src={w.image}
+										height={50}
+										width={50}
+										className='h-[40px] p-1 border-primary/50 border rounded-md cursor-pointer hover:bg-primary/10 flex-grow'
+										alt='weapon-image'
 										onClick={() => {
 											setSelectedWeapons((prev) => {
 												return {
@@ -77,20 +82,13 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 												}
 											})
 										}}
-									>
-										<Image
-											src={w.image}
-											height={50}
-											width={50}
-											alt='weapon-image'
-										/>
-									</div>
+									/>
 								</TooltipTrigger>
 								<TooltipContent
 									side='bottom'
-									className='border border-primary p-2 w-[200px] space-y-1'
+									className='border border-primary/50 rounded-md p-2 w-[250px] space-y-1'
 								>
-									<p className='font-bold'>{w.name}</p>
+									<p className='font-semibold text-base'>{w.name}</p>
 									<p>{w.description}</p>
 								</TooltipContent>
 							</Tooltip>
