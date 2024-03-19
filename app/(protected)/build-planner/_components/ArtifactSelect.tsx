@@ -30,14 +30,14 @@ const ArtifactSelect: FC<ArtifactSelectProps> = ({
 	}
 
 	return (
-		<div className='flex gap-2'>
-			{artifacts?.map((a) => (
+		<div className='flex gap-2 flex-wrap'>
+			{artifacts?.map((a, index) => (
 				<TooltipProvider delayDuration={100} key={a.id}>
 					<Tooltip>
 						<TooltipTrigger asChild>
 							<Button
 								key={a.id}
-								className={cn('bg-transparent p-1 border-primary', {
+								className={cn('bg-transparent p-1 border-primary flex-grow', {
 									'border-[#DA8200]': selectedArtifacts.includes(a),
 								})}
 								variant='outline'

@@ -65,31 +65,33 @@ const Client: FC<ClientProps> = ({ data, artifacts }) => {
 					buildName={buildName}
 					isPending={isPending}
 				/>
-				<div className='flex flex-col gap-4 bg-primary/10 p-4 rounded-md'>
-					<p className='font-semibold'>Weapons:</p>
-					{Object.keys(selectedWeapons).map((key: string) => {
-						if (selectedWeapons[key]) {
-							return (
-								<WeaponCard
-									key={key}
-									index={key}
-									selectedWeapons={selectedWeapons}
-									setSelectedWeapons={setSelectedWeapons}
-								/>
-							)
-						} else {
-							return (
-								<WeaponSelect
-									key={key}
-									index={key}
-									selectedWeapons={selectedWeapons}
-									setSelectedWeapons={setSelectedWeapons}
-									selectedSpec={selectedSpec}
-								/>
-							)
-						}
-					})}
-					<div className='flex flex-col gap-4'>
+				<div className='flex gap-4 bg-primary/10 p-4 rounded-md'>
+					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>
+						<p className='font-semibold'>Weapons:</p>
+						{Object.keys(selectedWeapons).map((key: string) => {
+							if (selectedWeapons[key]) {
+								return (
+									<WeaponCard
+										key={key}
+										index={key}
+										selectedWeapons={selectedWeapons}
+										setSelectedWeapons={setSelectedWeapons}
+									/>
+								)
+							} else {
+								return (
+									<WeaponSelect
+										key={key}
+										index={key}
+										selectedWeapons={selectedWeapons}
+										setSelectedWeapons={setSelectedWeapons}
+										selectedSpec={selectedSpec}
+									/>
+								)
+							}
+						})}
+					</div>
+					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>
 						<p className='font-semibold'>Artifacts:</p>
 						<ArtifactSelect
 							artifacts={artifacts!}
