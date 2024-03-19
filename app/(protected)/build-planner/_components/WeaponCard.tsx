@@ -70,6 +70,11 @@ const WeaponCard: FC<WeaponCardProps> = ({
 													selectedWeapons[index]!.selectedOverclocks.includes(
 														c
 													),
+												'border-red-500/75':
+													c.unstable &&
+													!selectedWeapons[index]!.selectedOverclocks.includes(
+														c
+													),
 											}
 										)}
 										disabled={overclocksFull || unstablesFull}
