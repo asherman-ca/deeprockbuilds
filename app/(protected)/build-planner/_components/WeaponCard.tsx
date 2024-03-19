@@ -64,7 +64,7 @@ const WeaponCard: FC<WeaponCardProps> = ({
 								<TooltipTrigger asChild>
 									<Button
 										className={cn(
-											'p-1 border-primary rounded-md border cursor-pointer bg-transparent hover:bg-primary/20',
+											'p-1 border-primary/50 rounded-md border cursor-pointer bg-transparent hover:bg-primary/10 flex-grow',
 											{
 												'border-[#DA8200]':
 													selectedWeapons[index]!.selectedOverclocks.includes(
@@ -117,9 +117,9 @@ const WeaponCard: FC<WeaponCardProps> = ({
 								</TooltipTrigger>
 								<TooltipContent
 									side='bottom'
-									className='border border-primary p-2 w-[200px] space-y-1'
+									className='border border-primary/50 p-2 w-[200px] space-y-1'
 								>
-									<p className='font-bold'>{c.name}</p>
+									<p className='font-semibold text-base'>{c.name}</p>
 									<p>{c.description}</p>
 								</TooltipContent>
 							</Tooltip>

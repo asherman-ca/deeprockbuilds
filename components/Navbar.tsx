@@ -22,7 +22,7 @@ const Navbar: FC<NavbarProps> = () => {
 
 	return (
 		<div className='w-full flex flex-col items-center'>
-			<div className='flex justify-between items-center py-2 w-[90%] sm:w-[80%] max-w-[1400px]'>
+			<div className='flex justify-between items-center py-4 w-[90%] sm:w-[80%] max-w-[1400px]'>
 				<Link href={'/'}>
 					<h2 className='font-semibold'>DeeprockBuilds</h2>
 				</Link>

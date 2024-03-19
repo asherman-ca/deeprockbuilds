@@ -7,8 +7,6 @@ import WeaponCard from './WeaponCard'
 import WeaponSelect from './WeaponSelect'
 import { newBuild } from '@/actions/build'
 import { useRouter } from 'next/navigation'
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
 import ArtifactSelect from './ArtifactSelect'
 
 interface ClientProps {

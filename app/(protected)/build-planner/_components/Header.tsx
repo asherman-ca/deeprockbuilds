@@ -21,6 +21,7 @@ import { Spec } from '@/schemas/dataSchemas'
 import { Button } from '@/components/ui/button'
 import { Paperclip } from 'lucide-react'
 import { Input } from '@/components/ui/input'
+import { FaSpinner } from 'react-icons/fa'
 
 interface HeaderProps {
 	classes: any
@@ -121,7 +122,9 @@ const Header: FC<HeaderProps> = ({
 							variant='secondary'
 							disabled={buildName === '' || isPending}
 							onClick={onSubmit}
+							className='flex gap-2 items-center'
 						>
+							{isPending && <FaSpinner className='animate-spin' />}
 							{isPending ? 'Creating' : 'Create'} Build
 						</Button>
 					</DialogContent>
