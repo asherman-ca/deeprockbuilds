@@ -6,6 +6,7 @@ import BuildTile from './BuildTile'
 import { metaBuild } from '@/schemas/dataSchemas'
 import ClassSelector from './ClassSelector'
 import { useBuilds } from '@/hooks/useBuilds'
+import Link from 'next/link'
 
 const classNames = ['Gunner', 'Scout', 'Driller', 'Engineer'] as const
 
@@ -57,13 +58,17 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 						<div className='flex flex-col gap-4 pb-4'>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Popular Builds</h2>
 							{popularFilteredBuilds.map((item) => (
-								<BuildTile key={item.id} item={item} />
+								<Link href={`/builds/${item.build.id}`}>
+									<BuildTile key={item.id} item={item} />
+								</Link>
 							))}
 						</div>
 						<div className='flex flex-col gap-4'>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Other Builds</h2>
 							{filteredBuilds.map((item) => (
-								<BuildTile key={item.id} item={item} />
+								<Link href={`/builds/${item.build.id}`}>
+									<BuildTile key={item.id} item={item} />
+								</Link>
 							))}
 						</div>
 					</div>
