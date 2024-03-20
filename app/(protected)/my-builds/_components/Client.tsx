@@ -4,6 +4,7 @@ import ClassSelector from '@/components/ClassSelector'
 import { Input } from '@/components/ui/input'
 import { useUserBuilds } from '@/hooks/useUserBuilds'
 import { Build } from '@/schemas/dataSchemas'
+import Link from 'next/link'
 import { FC, useState } from 'react'
 import { HiMagnifyingGlass } from 'react-icons/hi2'
 
@@ -54,14 +55,16 @@ const Client: FC<ClientProps> = ({ builds, classes }) => {
 							All {selectedClass} Builds
 						</h2>
 						{filteredBuilds.map((item) => (
-							<BuildTile
-								key={item.id}
-								item={{
-									id: item.id,
-									class: item.class,
-									build: item,
-								}}
-							/>
+							<Link key={item.id} href={`/builds/${item.id}`}>
+								<BuildTile
+									key={item.id}
+									item={{
+										id: item.id,
+										class: item.class,
+										build: item,
+									}}
+								/>
+							</Link>
 						))}
 					</div>
 				</div>

@@ -15,13 +15,7 @@ const page: FC<pageProps> = async ({ params }) => {
 		return <div>Build not found</div>
 	}
 
-	return (
-		<div className='parent'>
-			<div className='gutters py-4'>
-				<Client build={build} />
-			</div>
-		</div>
-	)
+	return <Client build={build} />
 }
 
 export default page
