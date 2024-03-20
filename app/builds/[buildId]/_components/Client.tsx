@@ -1,25 +1,33 @@
+'use client'
+
 import { Build } from '@/schemas/dataSchemas'
 import { FC } from 'react'
 import Header from './Header'
+import BuildWeaponCard from './BuildWeaponCard'
 
 interface ClientProps {
 	build: Build
+	isOwner: boolean
 }
 
-const Client: FC<ClientProps> = ({ build }) => {
+const Client: FC<ClientProps> = ({ build, isOwner }) => {
 	return (
 		<div className='parent'>
 			<div className='gutters py-4 gap-4 flex flex-col'>
-				<Header build={build} />
+				<Header build={build} isOwner={isOwner} />
 				<div className='flex gap-4 rounded-md bg-primary/10 p-4'>
 					<div className='flex-1 bg-primary/5 p-4 rounded-md flex flex-col gap-4'>
-						<p>Weapons:</p>
+						<p className='font-semibold'>Weapons:</p>
 						{build.weapons.map((weapon, index) => (
-							<div key={weapon.weapon.id}>{weapon.weapon.name}</div>
+							<BuildWeaponCard
+								key={weapon.weapon.id}
+								weapon={weapon}
+								index={index}
+							/>
 						))}
 					</div>
 					<div className='flex-1 bg-primary/5 p-4 rounded-md flex flex-col gap-4'>
-						<p>Artifacts:</p>
+						<p className='font-semibold'>Artifacts:</p>
 					</div>
 				</div>
 			</div>
