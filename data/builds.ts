@@ -36,6 +36,7 @@ export const getUserBuilds = async (userId: string) => {
 				userId,
 			},
 			include: {
+				class: true,
 				spec: true,
 				weapons: {
 					include: {

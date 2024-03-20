@@ -11,7 +11,7 @@ const page: FC<pageProps> = async ({}) => {
 	const classes = (await getClasses()) as any
 	const builds = await getUserBuilds(user.user.id)
 
-	return <Client builds={builds} />
+	return <Client builds={builds} classes={classes} />
 }
 
 export default page
