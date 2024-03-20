@@ -49,7 +49,7 @@ const BuildWeaponCard: FC<BuildWeaponCardProps> = ({ weapon, index }) => {
 											height={50}
 											width={50}
 											className={cn(
-												'border-primary/50 rounded-md border height-[50px] px-2 py-1',
+												'border-primary/50 rounded-md border h-[40px] px-4 py-2',
 												{
 													'border-red-500/80': c.overclock.unstable,
 												}

@@ -11,7 +11,7 @@ import { HiMagnifyingGlass } from 'react-icons/hi2'
 const classNames = ['Gunner', 'Scout', 'Driller', 'Engineer'] as const
 
 interface ClientProps {
-	builds: Build[]
+	builds: Build[] | []
 	classes: {
 		id: number
 		name: (typeof classNames)[number]
