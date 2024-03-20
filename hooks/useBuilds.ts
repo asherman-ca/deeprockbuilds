@@ -1,26 +1,101 @@
-// import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { metaBuild } from '@/schemas/dataSchemas'
 
-// const useBuilds = (builds, selectedClass, search) => {
-// 	const [filteredBuilds, setFilteredBuilds] = useState([])
-// 	const [popularFilteredBuilds, setPopularFilteredBuilds] = useState([])
+const classNamez = ['Gunner', 'Scout', 'Driller', 'Engineer'] as const
 
-// 	return { filteredBuilds, popularFilteredBuilds }
-// }
+export const useBuilds = (
+	search: string,
+	classNames: typeof classNamez,
+	builds: metaBuild[]
+) => {
+	const [selectedClass, setSelectedClass] = useState<
+		(typeof classNames)[number] | ''
+	>('')
+	const popularBuilds = builds.filter((item) => item.popular)
+	builds = builds.filter((item) => !item.popular)
+	const [filteredBuilds, setFilteredBuilds] = useState(
+		builds.filter((item) => !item.popular)
+	)
+	const [popularFilteredBuilds, setPopularFilteredBuilds] =
+		useState(popularBuilds)
 
-// function filterByClass(builds, selectedClass) {
-// 	return builds.filter((build) => build.class.name === selectedClass)
-// }
+	useEffect(() => {
+		if (search === '') {
+			if (selectedClass === '') {
+				setFilteredBuilds(builds.filter((item) => !item.popular))
+				setPopularFilteredBuilds(popularBuilds)
+			} else {
+				setFilteredBuilds(
+					builds.filter(
+						(item) => item.class.name === selectedClass && !item.popular
+					)
+				)
+				setPopularFilteredBuilds(
+					popularBuilds.filter(
+						(item) => item.class.name === selectedClass && item.popular
+					)
+				)
+			}
+		} else {
+			if (selectedClass === '') {
+				setFilteredBuilds(
+					builds.filter(
+						(item) =>
+							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
+							item.build.weapons.some((weapon) =>
+								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+							)
+					)
+				)
+				setPopularFilteredBuilds(
+					popularBuilds.filter(
+						(item) =>
+							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
+							item.build.weapons.some((weapon) =>
+								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+							)
+					)
+				)
+			} else {
+				setFilteredBuilds(
+					builds.filter((item) => {
+						let nameMatch = item.build.name
+							.toLowerCase()
+							.includes(search.toLowerCase())
+						let weaponMatch = item.build.weapons.some((weapon) =>
+							weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+						)
+						let classMatch = item.class.name === selectedClass
+						if (classMatch && (nameMatch || weaponMatch)) {
+							return true
+						}
+						return false
+					})
+				)
+				setPopularFilteredBuilds(
+					popularBuilds.filter((item) => {
+						let nameMatch = item.build.name
+							.toLowerCase()
+							.includes(search.toLowerCase())
+						let weaponMatch = item.build.weapons.some((weapon) =>
+							weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
+						)
+						let classMatch = item.class.name === selectedClass
+						if (classMatch && (nameMatch || weaponMatch)) {
+							return true
+						}
+						return false
+					})
+				)
+			}
+		}
+	}, [search, selectedClass])
 
-// function filterBySearchTerm(builds, searchTerm) {
-// 	return builds.filter(
-// 		(build) =>
-// 			build.build.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-// 			build.build.weapons.some((weapon) =>
-// 				weapon.weapon.name.toLowerCase().includes(searchTerm.toLowerCase())
-// 			)
-// 	)
-// }
-
-// function filterByPopularity(builds) {
-// 	return builds.filter((build) => build.popular)
-// }
+	return {
+		popularBuilds,
+		filteredBuilds,
+		popularFilteredBuilds,
+		setSelectedClass,
+		selectedClass,
+	}
+}

@@ -1,11 +1,11 @@
 'use client'
 import { FC, useEffect, useState } from 'react'
 import { Input } from '@/components/ui/input'
-import { cn } from '@/lib/utils'
-import Image from 'next/image'
 import { HiMagnifyingGlass } from 'react-icons/hi2'
 import BuildTile from './BuildTile'
-import { Build, metaBuild } from '@/schemas/dataSchemas'
+import { metaBuild } from '@/schemas/dataSchemas'
+import ClassSelector from './ClassSelector'
+import { useBuilds } from '@/hooks/useBuilds'
 
 const classNames = ['Gunner', 'Scout', 'Driller', 'Engineer'] as const
 
@@ -20,90 +20,13 @@ interface pageProps {
 }
 
 const page: FC<pageProps> = ({ classes, builds }) => {
-	console.log('builds', builds)
-	const [selectedClass, setSelectedClass] = useState<
-		(typeof classNames)[number] | ''
-	>('')
-	const popularBuilds = builds.filter((item) => item.popular)
-	builds = builds.filter((item) => !item.popular)
-	const [filteredBuilds, setFilteredBuilds] = useState(
-		builds.filter((item) => !item.popular)
-	)
-	const [popularFilteredBuilds, setPopularFilteredBuilds] =
-		useState(popularBuilds)
 	const [search, setSearch] = useState<string>('')
-
-	useEffect(() => {
-		if (search === '') {
-			if (selectedClass === '') {
-				setFilteredBuilds(builds.filter((item) => !item.popular))
-				setPopularFilteredBuilds(popularBuilds)
-			} else {
-				setFilteredBuilds(
-					builds.filter(
-						(item) => item.class.name === selectedClass && !item.popular
-					)
-				)
-				setPopularFilteredBuilds(
-					popularBuilds.filter(
-						(item) => item.class.name === selectedClass && item.popular
-					)
-				)
-			}
-		} else {
-			if (selectedClass === '') {
-				setFilteredBuilds(
-					builds.filter(
-						(item) =>
-							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
-							item.build.weapons.some((weapon) =>
-								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
-							)
-					)
-				)
-				setPopularFilteredBuilds(
-					popularBuilds.filter(
-						(item) =>
-							item.build.name.toLowerCase().includes(search.toLowerCase()) ||
-							item.build.weapons.some((weapon) =>
-								weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
-							)
-					)
-				)
-			} else {
-				setFilteredBuilds(
-					builds.filter((item) => {
-						let nameMatch = item.build.name
-							.toLowerCase()
-							.includes(search.toLowerCase())
-						let weaponMatch = item.build.weapons.some((weapon) =>
-							weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
-						)
-						let classMatch = item.class.name === selectedClass
-						if (classMatch && (nameMatch || weaponMatch)) {
-							return true
-						}
-						return false
-					})
-				)
-				setPopularFilteredBuilds(
-					popularBuilds.filter((item) => {
-						let nameMatch = item.build.name
-							.toLowerCase()
-							.includes(search.toLowerCase())
-						let weaponMatch = item.build.weapons.some((weapon) =>
-							weapon.weapon.name.toLowerCase().includes(search.toLowerCase())
-						)
-						let classMatch = item.class.name === selectedClass
-						if (classMatch && (nameMatch || weaponMatch)) {
-							return true
-						}
-						return false
-					})
-				)
-			}
-		}
-	}, [search, selectedClass])
+	const {
+		popularFilteredBuilds,
+		filteredBuilds,
+		selectedClass,
+		setSelectedClass,
+	} = useBuilds(search, classNames, builds)
 
 	return (
 		<div className='parent'>
@@ -123,54 +46,11 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 
 				<div className='flex gap-8'>
 					<div className='flex basis-[35%] items-start'>
-						<div className='flex flex-col bg-primary/10 w-full rounded-md'>
-							{classes.map((item, idx) => (
-								<div
-									key={item.id}
-									className={cn(
-										'p-4 border-primary/20 flex items-center gap-2 cursor-pointer group text-primary/75 transition-all',
-										{
-											'border-b': idx !== classes.length - 1,
-											'bg-primary/10': selectedClass === item.name,
-										}
-									)}
-									onClick={() => {
-										if (selectedClass === item.name) {
-											setSelectedClass('')
-										} else {
-											setSelectedClass(item.name)
-										}
-									}}
-								>
-									<Image
-										className='rounded-md h-10 w-10 bg-primary/20 p-1'
-										src={item.image}
-										alt={item.name}
-										width={25}
-										height={25}
-									/>
-									<p
-										className={cn('', {
-											'group-hover:text-primary/100':
-												selectedClass !== item.name,
-											'text-primary/100': selectedClass === item.name,
-										})}
-									>
-										{item.name}
-									</p>
-									<span
-										className={cn(
-											'h-5 w-5 bg-primary/10 ml-auto transition-all',
-											{
-												'rotate-45 bg-red-500/75': selectedClass === item.name,
-												'group-hover:bg-primary/25':
-													selectedClass !== item.name,
-											}
-										)}
-									/>
-								</div>
-							))}
-						</div>
+						<ClassSelector
+							classes={classes}
+							setSelectedClass={setSelectedClass}
+							selectedClass={selectedClass}
+						/>
 					</div>
 
 					<div className='flex flex-col basis-[65%] text-primary/75 min-w-[600px]'>
