@@ -37,12 +37,10 @@ const ArtifactSelect: FC<ArtifactSelectProps> = ({
 						<TooltipTrigger asChild>
 							<Button
 								key={a.id}
-								className={cn(
-									'bg-transparent p-1 border-primary/50 flex-grow',
-									{
-										'border-[#DA8200]': selectedArtifacts.includes(a),
-									}
-								)}
+								className={cn('border-primary/50 flex-grow h-[50px]', {
+									'border-[#DA8200] bg-transparent':
+										selectedArtifacts.includes(a),
+								})}
 								variant='outline'
 								disabled={
 									selectedArtifacts.length === 5 &&
@@ -56,6 +54,7 @@ const ArtifactSelect: FC<ArtifactSelectProps> = ({
 									height={50}
 									width={50}
 									alt='artifact image'
+									className='h-[50px] py-2'
 								/>
 							</Button>
 						</TooltipTrigger>

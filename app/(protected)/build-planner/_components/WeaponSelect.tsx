@@ -40,7 +40,7 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 				<div className='flex gap-4 items-center'>
 					<DialogTrigger asChild>
 						<Button
-							variant='ghost'
+							variant='outline'
 							className='h-16 w-16 border-primary/50 border rounded-md'
 						/>
 					</DialogTrigger>
@@ -53,7 +53,8 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 					{selectedSpec.primaryWeapon.overclocks.map((c) => (
 						<Button
 							disabled
-							className='h-[40px] border-primary/50 border rounded-md bg-transparent flex-grow'
+							className='h-[40px] border-primary/50 border rounded-md flex-grow'
+							variant='outline'
 						></Button>
 					))}
 				</div>
@@ -86,10 +87,10 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 								</TooltipTrigger>
 								<TooltipContent
 									side='bottom'
-									className='border border-primary/50 rounded-md p-2 w-[250px] space-y-1'
+									className='border border-primary/50 rounded-md p-2 w-[250px] space-y-1 bg-secondary/90'
 								>
 									<p className='font-semibold text-base'>{w.name}</p>
-									<p>{w.description}</p>
+									<p className='text-[#DA8200]/90'>{w.description}</p>
 								</TooltipContent>
 							</Tooltip>
 						</TooltipProvider>
