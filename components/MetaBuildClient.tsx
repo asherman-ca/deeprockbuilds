@@ -38,7 +38,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 						<Input
 							type='text'
 							placeholder='Search by build or weapon...'
-							className='w-full bg-transparent group-focus-within:ring-0 group-focus-within:outline-none text-primary p-0 h-fit'
+							className='w-full bg-transparent group-focus-within:ring-0 group-focus-within:outline-none text-primary p-0 h-fit border-0 focus-visible:ring-0 input-reset'
 							onChange={(e) => setSearch(e.target.value)}
 						/>
 					</div>

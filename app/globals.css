@@ -82,3 +82,7 @@
 .parent {
 	@apply w-full flex justify-center;
 }
+
+.input-reset:focus-visible {
+	box-shadow: none !important;
+}
