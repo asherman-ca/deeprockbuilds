@@ -63,7 +63,7 @@ const ArtifactSelect: FC<ArtifactSelectProps> = ({
 							className='w-[200px] bg-secondary border-primary/50 border p-2 space-y-1'
 						>
 							<p className='font-semibold text-base'>{a.name}</p>
-							<p>{a.description}</p>
+							<p className='text-[#DA8200]/90'>{a.description}</p>
 						</TooltipContent>
 					</Tooltip>
 				</TooltipProvider>

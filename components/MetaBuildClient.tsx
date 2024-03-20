@@ -123,7 +123,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 
 				<div className='flex gap-8'>
 					<div className='flex basis-[35%] items-start'>
-						<div className='flex flex-col bg-primary-foreground w-full rounded-md'>
+						<div className='flex flex-col bg-primary/10 w-full rounded-md'>
 							{classes.map((item, idx) => (
 								<div
 									key={item.id}
@@ -143,7 +143,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 									}}
 								>
 									<Image
-										className='rounded-md h-10 w-10 bg-primary/10 p-1'
+										className='rounded-md h-10 w-10 bg-primary/20 p-1'
 										src={item.image}
 										alt={item.name}
 										width={25}
