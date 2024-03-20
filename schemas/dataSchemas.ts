@@ -52,3 +52,11 @@ export interface Artifact {
 }
 
 export type ClassesSpecsAndWeapons = Class[]
+
+export interface BuildResponse {
+	id: string
+	name: string
+	spec: Spec
+	class: Class
+	weapons: { weapon: Weapon; overclocks: { overclock: Overclock }[] }[]
+}

@@ -50,7 +50,9 @@ const Client: FC<ClientProps> = ({ builds, classes }) => {
 						/>
 					</div>
 					<div className='flex flex-col basis-[65%] text-primary/75 min-w-[600px] gap-4'>
-						<h2>All {selectedClass} Builds</h2>
+						<h2 className='p-2 bg-primary/20 rounded-md'>
+							All {selectedClass} Builds
+						</h2>
 						{filteredBuilds.map((item) => (
 							<BuildTile
 								key={item.id}

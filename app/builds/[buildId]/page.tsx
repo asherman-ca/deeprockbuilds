@@ -1,5 +1,6 @@
 import { getBuildById } from '@/data/builds'
 import { FC } from 'react'
+import Client from './_components/Client'
 
 interface pageProps {
 	params: {
@@ -16,7 +17,9 @@ const page: FC<pageProps> = async ({ params }) => {
 
 	return (
 		<div className='parent'>
-			<div className='gutters py-4'>{build!.name}</div>
+			<div className='gutters py-4'>
+				<Client build={build} />
+			</div>
 		</div>
 	)
 }

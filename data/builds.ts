@@ -1,4 +1,5 @@
 import { db } from '@/lib/db'
+import { Build, BuildResponse } from '@/schemas/dataSchemas'
 
 export const getMetaBuilds = async () => {
 	try {
@@ -57,7 +58,9 @@ export const getUserBuilds = async (userId: string) => {
 	}
 }
 
-export const getBuildById = async (id: string) => {
+export const getBuildById = async (
+	id: string
+): Promise<BuildResponse | null> => {
 	try {
 		const build = await db.build.findUnique({
 			where: {
@@ -65,6 +68,7 @@ export const getBuildById = async (id: string) => {
 			},
 			include: {
 				spec: true,
+				class: true,
 				weapons: {
 					include: {
 						weapon: true,
@@ -77,7 +81,7 @@ export const getBuildById = async (id: string) => {
 				},
 			},
 		})
-		return build
+		return build as unknown as BuildResponse
 	} catch (e) {
 		console.log(e)
 		return null
