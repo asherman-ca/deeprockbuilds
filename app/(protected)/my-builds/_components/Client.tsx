@@ -1,15 +1,16 @@
 'use client'
+import BuildTile from '@/components/BuildTile'
 import ClassSelector from '@/components/ClassSelector'
 import { Input } from '@/components/ui/input'
-import { useBuilds } from '@/hooks/useBuilds'
 import { useUserBuilds } from '@/hooks/useUserBuilds'
+import { Build } from '@/schemas/dataSchemas'
 import { FC, useState } from 'react'
 import { HiMagnifyingGlass } from 'react-icons/hi2'
 
 const classNames = ['Gunner', 'Scout', 'Driller', 'Engineer'] as const
 
 interface ClientProps {
-	builds: any
+	builds: Build[]
 	classes: {
 		id: number
 		name: (typeof classNames)[number]
@@ -48,10 +49,17 @@ const Client: FC<ClientProps> = ({ builds, classes }) => {
 							selectedClass={selectedClass}
 						/>
 					</div>
-					<div className='flex flex-col basis-[65%] text-primary/75 min-w-[600px]'>
+					<div className='flex flex-col basis-[65%] text-primary/75 min-w-[600px] gap-4'>
 						<h2>All {selectedClass} Builds</h2>
-						{filteredBuilds.map((build) => (
-							<div>{build.name}</div>
+						{filteredBuilds.map((item) => (
+							<BuildTile
+								key={item.id}
+								item={{
+									id: item.id,
+									class: item.class,
+									build: item,
+								}}
+							/>
 						))}
 					</div>
 				</div>

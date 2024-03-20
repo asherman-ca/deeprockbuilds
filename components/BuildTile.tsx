@@ -6,9 +6,14 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { Build, Class } from '@/schemas/dataSchemas'
 
 interface BuildTileProps {
-	item: any
+	item: {
+		id: string
+		class: Class
+		build: Build
+	}
 }
 
 const BuildTile: FC<BuildTileProps> = ({ item }) => {

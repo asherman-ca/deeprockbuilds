@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import { metaBuild } from '@/schemas/dataSchemas'
+import { Build } from '@/schemas/dataSchemas'
 
 const classNamez = ['Gunner', 'Scout', 'Driller', 'Engineer'] as const
 
 export const useUserBuilds = (
 	search: string,
 	classNames: typeof classNamez,
-	builds: metaBuild[]
+	builds: Build[]
 ) => {
 	const [selectedClass, setSelectedClass] = useState<
 		(typeof classNames)[number] | ''
