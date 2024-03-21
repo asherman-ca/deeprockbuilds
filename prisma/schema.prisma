@@ -111,6 +111,7 @@ model BuildWeapon {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   overclocks  BuildWeaponOverclock[]
+  position    Int @default(0)
 }
 
 model BuildWeaponOverclock {

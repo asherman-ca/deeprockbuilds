@@ -32,7 +32,7 @@ export interface Overclock {
 export interface Build {
 	id: string
 	name: string
-	weapons: { weapon: Weapon }[]
+	weapons: { weapon: Weapon; position: number }[]
 	class: Class
 	spec: Spec
 	artifacts: Artifact[]

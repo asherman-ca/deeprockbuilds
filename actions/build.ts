@@ -43,11 +43,12 @@ export const newBuild = async (payload: any) => {
 
 	Object.values(payload.weapons)
 		.filter((w) => w !== null)
-		.forEach(async (w: any) => {
+		.forEach(async (w: any, index) => {
 			const weaponRes = await db.buildWeapon.create({
 				data: {
 					buildId,
 					weaponId: w.id,
+					position: Number(index),
 				},
 			})
 
