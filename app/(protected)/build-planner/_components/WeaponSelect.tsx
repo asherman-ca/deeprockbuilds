@@ -13,7 +13,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { selectedWeaponType, selectedWeaponsType } from './Client'
+import { selectedWeaponsType } from './Client'
 import { Button } from '@/components/ui/button'
 import { Spec } from '@/schemas/dataSchemas'
 import Image from 'next/image'
@@ -64,7 +64,7 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 					<DialogTitle>Weapon Selection</DialogTitle>
 					<DialogDescription>Select Weapon Slot {index}</DialogDescription>
 				</DialogHeader>
-				<div className='flex gap-2'>
+				<div className='flex gap-2 flex-wrap'>
 					{remainingWeapons.map((w) => (
 						<TooltipProvider delayDuration={100} key={w.id}>
 							<Tooltip>
@@ -73,7 +73,7 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 										src={w.image}
 										height={50}
 										width={50}
-										className='h-[40px] p-1 border-primary/50 border rounded-md cursor-pointer hover:bg-primary/10 flex-grow'
+										className='h-[40px] p-1 border-primary/50 border rounded-md cursor-pointer hover:bg-primary/10'
 										alt='weapon-image'
 										onClick={() => {
 											setSelectedWeapons((prev) => {

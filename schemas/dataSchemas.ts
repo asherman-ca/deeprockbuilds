@@ -59,7 +59,12 @@ export interface BuildResponse {
 	name: string
 	spec: Spec
 	class: Class
-	weapons: { weapon: Weapon; overclocks: { overclock: Overclock }[] }[]
+	weapons: {
+		weapon: Weapon
+		overclocks: { overclock: Overclock }[]
+		position: number
+	}[]
 	userId: string
 	artifacts: Artifact[]
+	position: number
 }

@@ -1,19 +1,17 @@
 'use client'
 
-import { Build } from '@/schemas/dataSchemas'
+import { Build, BuildResponse } from '@/schemas/dataSchemas'
 import { FC } from 'react'
 import Header from './Header'
 import BuildWeaponCard from './BuildWeaponCard'
 import ArtifactCard from './ArtifactCard'
 
 interface ClientProps {
-	build: Build
+	build: BuildResponse
 	isOwner: boolean
 }
 
 const Client: FC<ClientProps> = ({ build, isOwner }) => {
-	console.log(build.weapons)
-
 	return (
 		<div className='parent'>
 			<div className='gutters py-4 gap-4 flex flex-col'>

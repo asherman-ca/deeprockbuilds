@@ -1,11 +1,11 @@
 import { Button } from '@/components/ui/button'
-import { Build } from '@/schemas/dataSchemas'
+import { Build, BuildResponse } from '@/schemas/dataSchemas'
 import { Paperclip, Trash } from 'lucide-react'
 import Image from 'next/image'
 import { FC } from 'react'
 
 interface HeaderProps {
-	build: Build
+	build: BuildResponse
 	isOwner: boolean
 }
 
