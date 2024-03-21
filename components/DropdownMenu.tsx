@@ -39,15 +39,15 @@ const DropDownMenu: FC<DropDownMenuProps> = () => {
 					</AvatarFallback>
 				</Avatar>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className='bg-primary/10 border-primary/20 border'>
+			<DropdownMenuContent className='bg-secondary border-primary/20 border'>
 				{!user ? (
 					<>
 						<DropdownMenuLabel>Login/Register</DropdownMenuLabel>
 						<DropdownMenuSeparator />
-						<DropdownMenuItem asChild>
+						<DropdownMenuItem>
 							<Button
 								size='icon'
-								className='m-2 cursor-pointer'
+								className='cursor-pointer w-full bg-primary/10 hover:bg-primary/5'
 								variant='outline'
 								onClick={onClick}
 							>
@@ -56,23 +56,15 @@ const DropDownMenu: FC<DropDownMenuProps> = () => {
 						</DropdownMenuItem>
 					</>
 				) : (
-					<div className='flex gap-4 items-center '>
-						<Button
-							size='default'
-							variant='link'
-							onClick={onLogout}
-							className=''
-						>
-							Logout
-						</Button>
-					</div>
+					<Button
+						size='default'
+						variant='outline'
+						onClick={onLogout}
+						className='w-full bg-primary/10 hover:bg-primary/5'
+					>
+						Logout
+					</Button>
 				)}
-				{/* <DropdownMenuLabel>My Account</DropdownMenuLabel>
-				<DropdownMenuSeparator />
-				<DropdownMenuItem>Profile</DropdownMenuItem>
-				<DropdownMenuItem>Billing</DropdownMenuItem>
-				<DropdownMenuItem>Team</DropdownMenuItem>
-				<DropdownMenuItem>Subscription</DropdownMenuItem> */}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	)
