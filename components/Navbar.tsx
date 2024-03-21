@@ -6,6 +6,7 @@ import DropdownMenu from './DropdownMenu'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
+import { protectedRoutes } from '@/routes'
 
 interface NavbarProps {}
 
@@ -41,6 +42,8 @@ const Navbar: FC<NavbarProps> = () => {
 								'py-2 hover:bg-primary/15 px-5 text-primary/75 hover:text-primary cursor-pointer',
 								{
 									'border-b-2 border-primary': tab.slug === pathname,
+									'cursor-not-allowed':
+										protectedRoutes.includes(tab.slug) && !user,
 								}
 							)}
 						>
