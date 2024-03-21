@@ -35,6 +35,7 @@ export interface Build {
 	weapons: { weapon: Weapon }[]
 	class: Class
 	spec: Spec
+	artifacts: Artifact[]
 }
 
 export interface metaBuild {
@@ -60,4 +61,5 @@ export interface BuildResponse {
 	class: Class
 	weapons: { weapon: Weapon; overclocks: { overclock: Overclock }[] }[]
 	userId: string
+	artifacts: Artifact[]
 }

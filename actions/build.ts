@@ -28,6 +28,13 @@ export const newBuild = async (payload: any) => {
 				id: user.user.id,
 			},
 		},
+		artifacts: {
+			connect: payload.artifacts.map((a: any) => {
+				return {
+					id: a.id,
+				}
+			}),
+		},
 	}
 
 	const { id: buildId } = await db.build.create({
@@ -55,6 +62,16 @@ export const newBuild = async (payload: any) => {
 				data: overClocks,
 			})
 		})
+
+	// map over artifacts and create a buildArtifact for each
+	// Object.values(payload.artifacts).forEach(async (a: any) => {
+	// 	await db.buildArtifact.create({
+	// 		data: {
+	// 			buildId,
+	// 			artifactId: a.id,
+	// 		},
+	// 	})}
+	// )}
 
 	return { success: 'success', buildId: buildId }
 }

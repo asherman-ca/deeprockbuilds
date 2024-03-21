@@ -67,6 +67,7 @@ export const getBuildById = async (
 				id,
 			},
 			include: {
+				artifacts: true,
 				spec: true,
 				class: true,
 				weapons: {

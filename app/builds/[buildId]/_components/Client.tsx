@@ -4,6 +4,7 @@ import { Build } from '@/schemas/dataSchemas'
 import { FC } from 'react'
 import Header from './Header'
 import BuildWeaponCard from './BuildWeaponCard'
+import ArtifactCard from './ArtifactCard'
 
 interface ClientProps {
 	build: Build
@@ -28,6 +29,11 @@ const Client: FC<ClientProps> = ({ build, isOwner }) => {
 					</div>
 					<div className='flex-1 bg-primary/5 p-4 rounded-md flex flex-col gap-4'>
 						<p className='font-semibold'>Artifacts:</p>
+						<div className='flex gap-2'>
+							{build.artifacts.map((artifact) => (
+								<ArtifactCard key={artifact.id} artifact={artifact} />
+							))}
+						</div>
 					</div>
 				</div>
 			</div>
