@@ -1,6 +1,5 @@
 'use server'
 import { signIn } from '@/auth'
-import { db } from '@/lib/db'
 
 export const login = async () => {
 	try {

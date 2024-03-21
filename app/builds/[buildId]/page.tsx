@@ -2,7 +2,6 @@ import { getBuildById } from '@/data/builds'
 import { FC } from 'react'
 import Client from './_components/Client'
 import { auth } from '@/auth'
-import LoadingTile from '@/components/LoadingTile'
 
 interface pageProps {
 	params: {

@@ -15,8 +15,6 @@ interface BuildWeaponCardProps {
 }
 
 const BuildWeaponCard: FC<BuildWeaponCardProps> = ({ weapon, index }) => {
-	console.log(weapon)
-
 	return (
 		<div className='flex flex-col gap-4'>
 			<div className='flex gap-4 items-center'>

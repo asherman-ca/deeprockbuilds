@@ -44,7 +44,6 @@ const Client: FC<ClientProps> = ({ data, artifacts }) => {
 				spec: selectedSpec,
 				weapons: selectedWeapons,
 			}).then((res) => {
-				console.log(res)
 				router.push(`/builds/${res.buildId}`)
 			})
 		})
