@@ -96,7 +96,7 @@ const Header: FC<HeaderProps> = ({
 			<div className='flex gap-4 items-center'>
 				{isOwner && (
 					<Dialog>
-						<DialogTrigger>
+						<DialogTrigger asChild>
 							<Button variant='ghost' className='gap-2'>
 								<Trash className='h-5 w-5' />
 								Delete
