@@ -94,4 +94,75 @@ export const deleteBuild = async (payload: any) => {
 	return { success: 'success' }
 }
 
-export const updateBuild = async (payload: any) => {}
+export const updateBuild = async (payload: any) => {
+	const user = await auth()
+	if (!user || !user.user) {
+		return { error: 'not authenticated' }
+	}
+
+	const build = await db.build.findFirst({
+		where: {
+			id: payload.id,
+			userId: user.user.id,
+		},
+	})
+
+	if (!build) {
+		return { error: 'build not found' }
+	}
+
+	await db.buildWeapon.deleteMany({
+		where: {
+			buildId: payload.id,
+		},
+	})
+
+	await db.buildWeaponOverclock.deleteMany({
+		where: {
+			buildWeapon: {
+				buildId: payload.id,
+			},
+		},
+	})
+
+	await db.build.update({
+		where: {
+			id: payload.id,
+		},
+		data: {
+			name: payload.name,
+			artifacts: {
+				connect: payload.artifacts.map((a: any) => {
+					return {
+						id: a.id,
+					}
+				}),
+			},
+		},
+	})
+
+	Object.values(payload.weapons)
+		.filter((w) => w !== null)
+		.forEach(async (w: any, index) => {
+			const weaponRes = await db.buildWeapon.create({
+				data: {
+					buildId: payload.id,
+					weaponId: w.id,
+					position: Number(index),
+				},
+			})
+
+			const overClocks = w.selectedOverclocks.map((o: any) => {
+				return {
+					overclockId: o.id,
+					buildWeaponId: weaponRes.id,
+				}
+			})
+
+			await db.buildWeaponOverclock.createMany({
+				data: overClocks,
+			})
+		})
+
+	return { success: 'success', buildId: payload.id }
+}

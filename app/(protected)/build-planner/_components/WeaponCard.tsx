@@ -17,6 +17,7 @@ interface WeaponCardProps {
 	setSelectedWeapons: (arg: SetStateAction<selectedWeaponsType>) => void
 	canEdit: boolean
 	handleOverclockSelect: (overclock: Overclock, index: any) => void
+	handleWeaponRemove: (index: string) => void
 }
 
 const WeaponCard: FC<WeaponCardProps> = ({
@@ -25,6 +26,7 @@ const WeaponCard: FC<WeaponCardProps> = ({
 	index,
 	canEdit,
 	handleOverclockSelect,
+	handleWeaponRemove,
 }) => {
 	return (
 		<div className='flex flex-col gap-4' key={index}>
@@ -42,12 +44,13 @@ const WeaponCard: FC<WeaponCardProps> = ({
 					alt='weapon-image'
 					onClick={() => {
 						if (index === '1' || !canEdit) return
-						setSelectedWeapons((prev: typeof selectedWeapons) => {
-							return {
-								...prev,
-								[index]: null,
-							}
-						})
+						handleWeaponRemove(index)
+						// setSelectedWeapons((prev: typeof selectedWeapons) => {
+						// 	return {
+						// 		...prev,
+						// 		[index]: null,
+						// 	}
+						// })
 					}}
 				/>
 				<div className='flex flex-col'>

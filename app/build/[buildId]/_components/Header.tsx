@@ -25,6 +25,7 @@ interface HeaderProps {
 	selectedSpec: Spec
 	build: BuildResponse
 	isOwner: boolean
+	handleSave: () => void
 }
 
 const Header: FC<HeaderProps> = ({
@@ -36,6 +37,7 @@ const Header: FC<HeaderProps> = ({
 	selectedSpec,
 	build,
 	isOwner,
+	handleSave,
 }) => {
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -129,7 +131,11 @@ const Header: FC<HeaderProps> = ({
 					</Dialog>
 				)}
 
-				{modified && <Button variant='outline'>Save Changes</Button>}
+				{modified && (
+					<Button variant='outline' onClick={handleSave}>
+						Save Changes
+					</Button>
+				)}
 			</div>
 		</div>
 	)

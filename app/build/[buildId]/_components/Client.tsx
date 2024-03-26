@@ -1,10 +1,11 @@
 'use client'
 import { Artifact, BuildResponse, Overclock, Spec } from '@/schemas/dataSchemas'
-import { FC, useState, useTransition } from 'react'
+import { FC, useEffect, useState, useTransition } from 'react'
 import Header from './Header'
 import WeaponCard from '@/app/(protected)/build-planner/_components/WeaponCard'
 import WeaponSelect from '@/app/(protected)/build-planner/_components/WeaponSelect'
 import ArtifactSelect from '@/app/(protected)/build-planner/_components/ArtifactSelect'
+import { updateBuild } from '@/actions/build'
 
 interface ClientProps {
 	build: BuildResponse
@@ -73,6 +74,16 @@ const Client: FC<ClientProps> = ({
 		})
 	}
 
+	const handleWeaponRemove = (index: string) => {
+		setModified(true)
+		setSelectedWeapons((prev: typeof selectedWeapons) => {
+			return {
+				...prev,
+				[index]: null,
+			}
+		})
+	}
+
 	const handleClockSelect = (c: any, index: any) => {
 		if (!isOwner) return
 		setModified(true)
@@ -105,7 +116,18 @@ const Client: FC<ClientProps> = ({
 		}
 	}
 
-	console.log('sels', selectedWeapons)
+	const handleSave = async () => {
+		startTransition(() => {
+			updateBuild({
+				name: buildName,
+				id: build.id,
+				weapons: selectedWeapons,
+				artifacts: selectedArtifacts,
+			}).then((res) => {
+				console.log(res)
+			})
+		})
+	}
 
 	return (
 		<div className='parent'>
@@ -119,6 +141,7 @@ const Client: FC<ClientProps> = ({
 					selectedSpec={selectedSpec}
 					build={build}
 					isOwner={isOwner}
+					handleSave={handleSave}
 				/>
 				<div className='flex gap-4 bg-primary/10 p-4 rounded-md'>
 					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>
@@ -133,6 +156,7 @@ const Client: FC<ClientProps> = ({
 										setSelectedWeapons={setSelectedWeapons}
 										canEdit={isOwner}
 										handleOverclockSelect={handleClockSelect}
+										handleWeaponRemove={handleWeaponRemove}
 									/>
 								)
 							} else {

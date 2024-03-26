@@ -80,12 +80,6 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 										className='h-[40px] p-1 border-primary/50 border rounded-md cursor-pointer hover:bg-primary/10'
 										alt='weapon-image'
 										onClick={() => {
-											// setSelectedWeapons((prev) => {
-											// 	return {
-											// 		...prev,
-											// 		[index]: { ...w, selectedOverclocks: [] },
-											// 	}
-											// })
 											handleWeaponSelect(w, index)
 										}}
 									/>
