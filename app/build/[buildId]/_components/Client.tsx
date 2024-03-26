@@ -39,10 +39,19 @@ const Client: FC<ClientProps> = ({ build, isOwner, data, artifacts }) => {
 					build={build}
 					isOwner={isOwner}
 				/>
-				{selectedSpec.name}
-				{selectedWeapons[1]?.weapon.name}
-				{selectedWeapons[2]?.weapon.name}
-				{selectedWeapons[3]?.weapon.name}
+				<div className='flex gap-4 bg-primary/10 p-4 rounded-md'>
+					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>
+						<p className='font-semibold'>Weapons:</p>
+						{selectedSpec.name}
+						{selectedWeapons[1]?.weapon.name}
+						{selectedWeapons[2]?.weapon.name}
+						{selectedWeapons[3]?.weapon.name}
+					</div>
+
+					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>
+						<p className='font-semibold'>Artifacts:</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	)

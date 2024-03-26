@@ -44,16 +44,18 @@ const Header: FC<HeaderProps> = ({
 					<div className='flex items-center gap-4'>
 						{isEditing ? (
 							<Input
+								placeholder={buildName || 'build name...'}
 								className='h-[28px]'
 								value={buildName}
 								onChange={(e) => {
-									if (e.target.value === '') return
 									setBuildName(e.target.value)
 									setModified(true)
 								}}
 							/>
 						) : (
-							<h1 className='text-lg text-nowrap'>{buildName}</h1>
+							<h1 className='text-lg text-nowrap'>
+								{buildName ? buildName : 'unnamed build'}
+							</h1>
 						)}
 						{isOwner && (
 							<Pencil size={20} onClick={() => setIsEditing((p) => !p)} />
