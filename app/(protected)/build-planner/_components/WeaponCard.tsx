@@ -26,7 +26,6 @@ const WeaponCard: FC<WeaponCardProps> = ({
 	canEdit,
 	handleOverclockSelect,
 }) => {
-	// console.log(selectedWeapons[index])
 	return (
 		<div className='flex flex-col gap-4' key={index}>
 			<div className='flex gap-4 items-center'>
@@ -60,11 +59,9 @@ const WeaponCard: FC<WeaponCardProps> = ({
 				{selectedWeapons[index]!.overclocks.sort(
 					(a: any, b: any) => a.unstable - b.unstable
 				).map((c: Overclock) => {
-					// console.log(selectedWeapons[index].selectedOverclocks)
-
 					if (
 						selectedWeapons[index].selectedOverclocks.some(
-							(z) => z === undefined
+							(z: any) => z === undefined
 						)
 					)
 						return null

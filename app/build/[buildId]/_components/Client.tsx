@@ -1,7 +1,6 @@
 'use client'
-import { selectedWeaponsType } from '@/app/(protected)/build-planner/_components/Client'
 import { Artifact, BuildResponse, Overclock, Spec } from '@/schemas/dataSchemas'
-import { FC, useEffect, useState, useTransition } from 'react'
+import { FC, useState, useTransition } from 'react'
 import Header from './Header'
 import WeaponCard from '@/app/(protected)/build-planner/_components/WeaponCard'
 import WeaponSelect from '@/app/(protected)/build-planner/_components/WeaponSelect'
