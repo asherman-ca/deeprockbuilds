@@ -62,12 +62,12 @@ const WeaponCard: FC<WeaponCardProps> = ({
 					let overclocksFull =
 						selectedWeapons[index]!.selectedOverclocks.length >= 3 &&
 						!selectedWeapons[index]!.selectedOverclocks.map(
-							(a: any) => a.id
+							(a: any) => a?.id
 						).includes(c.id)
 					let unstablesFull =
 						c.unstable &&
 						selectedWeapons[index].selectedOverclocks.some(
-							(w: any) => w.unstable && w.id !== c.id
+							(w: any) => w?.unstable && w.id !== c.id
 						)
 
 					return (
@@ -81,13 +81,13 @@ const WeaponCard: FC<WeaponCardProps> = ({
 											{
 												'border-[#DA8200] bg-transparent': selectedWeapons[
 													index
-												]!.selectedOverclocks.map((a: any) => a.id).includes(
+												]!.selectedOverclocks.map((a: any) => a?.id).includes(
 													c.id
 												),
 												'border-red-500/75':
 													c.unstable &&
 													!selectedWeapons[index]!.selectedOverclocks.map(
-														(a: any) => a.id
+														(a: any) => a?.id
 													).includes(c.id),
 												'cursor-default': !canEdit,
 											}
