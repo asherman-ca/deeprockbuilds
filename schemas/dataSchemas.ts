@@ -67,4 +67,5 @@ export interface BuildResponse {
 	userId: string
 	artifacts: Artifact[]
 	position: number
+	updatedAt: string
 }

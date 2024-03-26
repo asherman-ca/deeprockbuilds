@@ -33,7 +33,6 @@ const Client: FC<ClientProps> = ({ data, artifacts }) => {
 		4: null,
 	})
 	const [selectedArtifacts, setSelectedArtifacts] = useState<Artifact[]>([])
-
 	const [isPending, startTransition] = useTransition()
 
 	const onSubmit = () => {
