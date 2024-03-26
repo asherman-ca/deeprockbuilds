@@ -1,6 +1,6 @@
 'use client'
 
-import { Build, BuildResponse } from '@/schemas/dataSchemas'
+import { BuildResponse } from '@/schemas/dataSchemas'
 import { FC } from 'react'
 import Header from './Header'
 import BuildWeaponCard from './BuildWeaponCard'
