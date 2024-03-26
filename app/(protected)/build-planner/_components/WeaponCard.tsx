@@ -26,6 +26,7 @@ const WeaponCard: FC<WeaponCardProps> = ({
 	canEdit,
 	handleOverclockSelect,
 }) => {
+	// console.log(selectedWeapons[index])
 	return (
 		<div className='flex flex-col gap-4' key={index}>
 			<div className='flex gap-4 items-center'>
@@ -59,15 +60,23 @@ const WeaponCard: FC<WeaponCardProps> = ({
 				{selectedWeapons[index]!.overclocks.sort(
 					(a: any, b: any) => a.unstable - b.unstable
 				).map((c: Overclock) => {
+					// console.log(selectedWeapons[index].selectedOverclocks)
+
+					if (
+						selectedWeapons[index].selectedOverclocks.some(
+							(z) => z === undefined
+						)
+					)
+						return null
 					let overclocksFull =
 						selectedWeapons[index]!.selectedOverclocks.length >= 3 &&
 						!selectedWeapons[index]!.selectedOverclocks.map(
-							(a: any) => a?.id
+							(a: any) => a.id
 						).includes(c.id)
 					let unstablesFull =
 						c.unstable &&
 						selectedWeapons[index].selectedOverclocks.some(
-							(w: any) => w?.unstable && w.id !== c.id
+							(w: any) => w.unstable && w.id !== c.id
 						)
 
 					return (
@@ -81,13 +90,13 @@ const WeaponCard: FC<WeaponCardProps> = ({
 											{
 												'border-[#DA8200] bg-transparent': selectedWeapons[
 													index
-												]!.selectedOverclocks.map((a: any) => a?.id).includes(
+												]!.selectedOverclocks.map((a: any) => a.id).includes(
 													c.id
 												),
 												'border-red-500/75':
 													c.unstable &&
 													!selectedWeapons[index]!.selectedOverclocks.map(
-														(a: any) => a?.id
+														(a: any) => a.id
 													).includes(c.id),
 												'cursor-default': !canEdit,
 											}

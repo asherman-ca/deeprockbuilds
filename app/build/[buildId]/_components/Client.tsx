@@ -106,6 +106,8 @@ const Client: FC<ClientProps> = ({
 		}
 	}
 
+	console.log('sels', selectedWeapons)
+
 	return (
 		<div className='parent'>
 			<div className='gutters py-4 space-y-4'>
