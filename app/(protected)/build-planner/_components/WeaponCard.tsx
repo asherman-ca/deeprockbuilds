@@ -50,14 +50,18 @@ const WeaponCard: FC<WeaponCardProps> = ({
 				{selectedWeapons[index]!.overclocks.sort(
 					(a: any, b: any) => a.unstable - b.unstable
 				).map((c: Overclock) => {
+					console.log(selectedWeapons[index]!.selectedOverclocks)
 					let overclocksFull =
 						selectedWeapons[index]!.selectedOverclocks.length >= 3 &&
-						!selectedWeapons[index]!.selectedOverclocks.includes(c)
+						!selectedWeapons[index]!.selectedOverclocks.map(
+							(a: any) => a.id
+						).includes(c.id)
 					let unstablesFull =
 						c.unstable &&
 						selectedWeapons[index].selectedOverclocks.some(
 							(w: any) => w.unstable && w.id !== c.id
 						)
+
 					return (
 						<TooltipProvider delayDuration={100} key={c.id}>
 							<Tooltip>

@@ -68,4 +68,14 @@ export interface BuildResponse {
 	artifacts: Artifact[]
 	position: number
 	updatedAt: string
+	specId: string
+}
+
+export interface WeaponResponse {
+	id: string
+	name: string
+	image: string
+	description: string
+	stats: string
+	overclocks: Overclock[]
 }

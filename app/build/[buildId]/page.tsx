@@ -4,6 +4,7 @@ import { auth } from '@/auth'
 import { getClassesSpecsAndWeapons } from '@/data/class'
 import { getArtifacts } from '@/data/artifacts'
 import Client from './_components/Client'
+import { getWeaponsBySpec } from '@/data/weapons'
 
 interface pageProps {
 	params: {
@@ -17,13 +18,20 @@ const page: FC<pageProps> = async ({ params }) => {
 	const isOwner = session?.user?.id === build?.userId
 	const data = await getClassesSpecsAndWeapons()
 	const artifacts = await getArtifacts()
+	const weapons = await getWeaponsBySpec(build?.specId!)
 
 	if (!build) {
 		return <div>Build not found</div>
 	}
 
 	return (
-		<Client build={build} isOwner={isOwner} data={data} artifacts={artifacts} />
+		<Client
+			build={build}
+			isOwner={isOwner}
+			data={data}
+			artifacts={artifacts}
+			weapons={weapons[0].weapons}
+		/>
 	)
 }
 
