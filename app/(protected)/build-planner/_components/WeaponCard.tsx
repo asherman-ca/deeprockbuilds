@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { Overclock, Weapon } from '@/schemas/dataSchemas'
+import { Overclock } from '@/schemas/dataSchemas'
 import Image from 'next/image'
 import { FC, SetStateAction } from 'react'
 import {
@@ -15,24 +15,33 @@ interface WeaponCardProps {
 	selectedWeapons: any
 	index: string
 	setSelectedWeapons: (arg: SetStateAction<selectedWeaponsType>) => void
+	canEdit: boolean
+	handleOverclockSelect: (overclock: Overclock, index: any) => void
 }
 
 const WeaponCard: FC<WeaponCardProps> = ({
 	setSelectedWeapons,
 	selectedWeapons,
 	index,
+	canEdit,
+	handleOverclockSelect,
 }) => {
 	return (
 		<div className='flex flex-col gap-4' key={index}>
 			<div className='flex gap-4 items-center'>
 				<Image
-					className='h-16 w-16 border-[#DA8200] border rounded-md p-1'
+					className={cn(
+						'h-16 w-16 border-[#DA8200] border rounded-md p-1 cursor-pointer',
+						{
+							'cursor-default': !canEdit,
+						}
+					)}
 					src={selectedWeapons[index]!.image}
 					height={50}
 					width={50}
 					alt='weapon-image'
 					onClick={() => {
-						if (index === '1') return
+						if (index === '1' || !canEdit) return
 						setSelectedWeapons((prev: typeof selectedWeapons) => {
 							return {
 								...prev,
@@ -50,7 +59,6 @@ const WeaponCard: FC<WeaponCardProps> = ({
 				{selectedWeapons[index]!.overclocks.sort(
 					(a: any, b: any) => a.unstable - b.unstable
 				).map((c: Overclock) => {
-					console.log(selectedWeapons[index]!.selectedOverclocks)
 					let overclocksFull =
 						selectedWeapons[index]!.selectedOverclocks.length >= 3 &&
 						!selectedWeapons[index]!.selectedOverclocks.map(
@@ -81,42 +89,12 @@ const WeaponCard: FC<WeaponCardProps> = ({
 													!selectedWeapons[index]!.selectedOverclocks.map(
 														(a: any) => a.id
 													).includes(c.id),
+												'cursor-default': !canEdit,
 											}
 										)}
 										disabled={overclocksFull || unstablesFull}
 										onClick={() => {
-											if (
-												selectedWeapons[index]!.selectedOverclocks.map(
-													(a: any) => a.id
-												).includes(c.id)
-											) {
-												setSelectedWeapons((prev: typeof selectedWeapons) => {
-													return {
-														...prev,
-														[index]: {
-															...prev[index],
-															selectedOverclocks: prev[
-																index
-															].selectedOverclocks.filter(
-																(i: Overclock) => i.id !== c.id
-															),
-														},
-													}
-												})
-											} else {
-												setSelectedWeapons((prev: typeof selectedWeapons) => {
-													return {
-														...prev,
-														[index]: {
-															...prev[index],
-															selectedOverclocks: [
-																...prev[index].selectedOverclocks,
-																c,
-															],
-														},
-													}
-												})
-											}
+											handleOverclockSelect(c, index)
 										}}
 									>
 										<Image

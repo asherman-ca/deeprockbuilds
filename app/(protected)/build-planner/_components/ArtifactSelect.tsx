@@ -14,21 +14,17 @@ interface ArtifactSelectProps {
 	artifacts: Artifact[]
 	selectedArtifacts: Artifact[]
 	setSelectedArtifacts: (arg: (prev: Artifact[]) => Artifact[]) => void
+	canEdit: boolean
+	handleArtifactSelect: (artifact: Artifact) => void
 }
 
 const ArtifactSelect: FC<ArtifactSelectProps> = ({
 	artifacts,
 	selectedArtifacts,
 	setSelectedArtifacts,
+	canEdit,
+	handleArtifactSelect,
 }) => {
-	const onClick = (artifact: Artifact) => {
-		if (selectedArtifacts.includes(artifact)) {
-			setSelectedArtifacts((prev) => prev.filter((a) => a.id !== artifact.id))
-		} else {
-			setSelectedArtifacts((prev) => [...prev, artifact])
-		}
-	}
-
 	return (
 		<div className='flex gap-2 flex-wrap'>
 			{artifacts?.map((a) => (
@@ -38,15 +34,17 @@ const ArtifactSelect: FC<ArtifactSelectProps> = ({
 							<Button
 								key={a.id}
 								className={cn('border-primary/50 flex-grow h-[50px]', {
-									'border-[#DA8200] bg-transparent':
-										selectedArtifacts.includes(a),
+									'border-[#DA8200] bg-transparent': selectedArtifacts
+										.map((b) => b.id)
+										.includes(a.id),
+									'cursor-default': !canEdit,
 								})}
 								variant='outline'
 								disabled={
 									selectedArtifacts.length === 5 &&
-									!selectedArtifacts.includes(a)
+									!selectedArtifacts.map((b) => b.id).includes(a.id)
 								}
-								onClick={() => onClick(a)}
+								onClick={() => handleArtifactSelect(a)}
 							>
 								<Image
 									src={a.image}

@@ -49,6 +49,53 @@ const Client: FC<ClientProps> = ({ data, artifacts }) => {
 		})
 	}
 
+	const handleArtifactSelect = (artifact: Artifact) => {
+		if (selectedArtifacts.map((a) => a.id).includes(artifact.id)) {
+			setSelectedArtifacts((prev) => prev.filter((a) => a.id !== artifact.id))
+		} else {
+			setSelectedArtifacts((prev) => [...prev, artifact])
+		}
+	}
+
+	const handleWeaponSelect = (w: any, index: number) => {
+		setSelectedWeapons((prev) => {
+			return {
+				...prev,
+				[index]: { ...w, selectedOverclocks: [] },
+			}
+		})
+	}
+
+	const handleClockSelect = (c: any, index: any) => {
+		if (
+			selectedWeapons[index]!.selectedOverclocks.map((a: any) => a.id).includes(
+				c.id
+			)
+		) {
+			setSelectedWeapons((prev: typeof selectedWeapons) => {
+				return {
+					...prev,
+					[index]: {
+						...prev[index],
+						selectedOverclocks: prev[index]!.selectedOverclocks.filter(
+							(i: Overclock) => i.id !== c.id
+						),
+					},
+				}
+			})
+		} else {
+			setSelectedWeapons((prev: typeof selectedWeapons) => {
+				return {
+					...prev,
+					[index]: {
+						...prev[index],
+						selectedOverclocks: [...prev[index]!.selectedOverclocks, c],
+					},
+				}
+			})
+		}
+	}
+
 	return (
 		<div className='parent'>
 			<div className='gutters py-4 space-y-4'>
@@ -69,20 +116,24 @@ const Client: FC<ClientProps> = ({ data, artifacts }) => {
 							if (selectedWeapons[key]) {
 								return (
 									<WeaponCard
+										canEdit={true}
 										key={key}
 										index={key}
 										selectedWeapons={selectedWeapons}
 										setSelectedWeapons={setSelectedWeapons}
+										handleOverclockSelect={handleClockSelect}
 									/>
 								)
 							} else {
 								return (
 									<WeaponSelect
+										canEdit={true}
 										key={key}
 										index={key}
 										selectedWeapons={selectedWeapons}
 										setSelectedWeapons={setSelectedWeapons}
 										selectedSpec={selectedSpec}
+										handleWeaponSelect={handleWeaponSelect}
 									/>
 								)
 							}
@@ -91,9 +142,11 @@ const Client: FC<ClientProps> = ({ data, artifacts }) => {
 					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>
 						<p className='font-semibold'>Artifacts:</p>
 						<ArtifactSelect
+							canEdit={true}
 							artifacts={artifacts!}
 							selectedArtifacts={selectedArtifacts}
 							setSelectedArtifacts={setSelectedArtifacts}
+							handleArtifactSelect={handleArtifactSelect}
 						/>
 					</div>
 				</div>

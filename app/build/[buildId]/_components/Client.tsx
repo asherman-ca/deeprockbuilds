@@ -1,10 +1,11 @@
 'use client'
 import { selectedWeaponsType } from '@/app/(protected)/build-planner/_components/Client'
-import { Artifact, BuildResponse, Spec } from '@/schemas/dataSchemas'
-import { FC, useState, useTransition } from 'react'
+import { Artifact, BuildResponse, Overclock, Spec } from '@/schemas/dataSchemas'
+import { FC, useEffect, useState, useTransition } from 'react'
 import Header from './Header'
 import WeaponCard from '@/app/(protected)/build-planner/_components/WeaponCard'
 import WeaponSelect from '@/app/(protected)/build-planner/_components/WeaponSelect'
+import ArtifactSelect from '@/app/(protected)/build-planner/_components/ArtifactSelect'
 
 interface ClientProps {
 	build: BuildResponse
@@ -47,9 +48,63 @@ const Client: FC<ClientProps> = ({
 		3: build.weapons.filter((w) => w.position === 2)[0] ?? null,
 		4: build.weapons.filter((w) => w.position === 3)[0] ?? null,
 	})
-	const [selectedArtifacts, setSelectedArtifacts] = useState<Artifact[]>([])
+	const [selectedArtifacts, setSelectedArtifacts] = useState<Artifact[]>(
+		build.artifacts
+	)
 	const [isPending, startTransition] = useTransition()
 	const [modified, setModified] = useState<boolean>(false)
+
+	const handleArtifactSelect = (artifact: Artifact) => {
+		if (!isOwner) return
+		setModified(true)
+		if (selectedArtifacts.map((a) => a.id).includes(artifact.id)) {
+			setSelectedArtifacts((prev) => prev.filter((a) => a.id !== artifact.id))
+		} else {
+			setSelectedArtifacts((prev) => [...prev, artifact])
+		}
+	}
+
+	const handleWeaponSelect = (w: any, index: number) => {
+		setModified(true)
+		setSelectedWeapons((prev: any) => {
+			return {
+				...prev,
+				[index]: { ...w, selectedOverclocks: [] },
+			}
+		})
+	}
+
+	const handleClockSelect = (c: any, index: any) => {
+		if (!isOwner) return
+		setModified(true)
+		if (
+			selectedWeapons[index]!.selectedOverclocks.map((a: any) => a.id).includes(
+				c.id
+			)
+		) {
+			setSelectedWeapons((prev: typeof selectedWeapons) => {
+				return {
+					...prev,
+					[index]: {
+						...prev[index],
+						selectedOverclocks: prev[index].selectedOverclocks.filter(
+							(i: Overclock) => i.id !== c.id
+						),
+					},
+				}
+			})
+		} else {
+			setSelectedWeapons((prev: typeof selectedWeapons) => {
+				return {
+					...prev,
+					[index]: {
+						...prev[index],
+						selectedOverclocks: [...prev[index].selectedOverclocks, c],
+					},
+				}
+			})
+		}
+	}
 
 	return (
 		<div className='parent'>
@@ -75,6 +130,8 @@ const Client: FC<ClientProps> = ({
 										index={key}
 										selectedWeapons={selectedWeapons}
 										setSelectedWeapons={setSelectedWeapons}
+										canEdit={isOwner}
+										handleOverclockSelect={handleClockSelect}
 									/>
 								)
 							} else {
@@ -85,6 +142,8 @@ const Client: FC<ClientProps> = ({
 										selectedWeapons={selectedWeapons}
 										setSelectedWeapons={setSelectedWeapons}
 										selectedSpec={selectedSpec}
+										canEdit={isOwner}
+										handleWeaponSelect={handleWeaponSelect}
 									/>
 								)
 							}
@@ -93,6 +152,13 @@ const Client: FC<ClientProps> = ({
 
 					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>
 						<p className='font-semibold'>Artifacts:</p>
+						<ArtifactSelect
+							canEdit={isOwner}
+							artifacts={artifacts}
+							selectedArtifacts={selectedArtifacts}
+							setSelectedArtifacts={setSelectedArtifacts}
+							handleArtifactSelect={handleArtifactSelect}
+						/>
 					</div>
 				</div>
 			</div>

@@ -55,7 +55,7 @@ const Client: FC<ClientProps> = ({ builds, classes }) => {
 							All {selectedClass} Builds
 						</h2>
 						{filteredBuilds.map((item) => (
-							<Link key={item.id} href={`/builds/${item.id}`}>
+							<Link key={item.id} href={`/build/${item.id}`}>
 								<BuildTile
 									key={item.id}
 									item={{

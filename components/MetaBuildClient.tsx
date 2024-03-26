@@ -58,7 +58,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 						<div className='flex flex-col gap-4 pb-4'>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Popular Builds</h2>
 							{popularFilteredBuilds.map((item) => (
-								<Link href={`/builds/${item.build.id}`}>
+								<Link href={`/build/${item.build.id}`}>
 									<BuildTile key={item.id} item={item} />
 								</Link>
 							))}
@@ -66,7 +66,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 						<div className='flex flex-col gap-4'>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Other Builds</h2>
 							{filteredBuilds.map((item) => (
-								<Link href={`/builds/${item.build.id}`}>
+								<Link href={`/build/${item.build.id}`}>
 									<BuildTile key={item.id} item={item} />
 								</Link>
 							))}

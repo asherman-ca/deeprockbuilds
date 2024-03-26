@@ -23,6 +23,8 @@ interface WeaponSelectProps {
 	setSelectedWeapons: (arg: SetStateAction<selectedWeaponsType>) => void
 	selectedWeapons: selectedWeaponsType
 	selectedSpec: Spec
+	canEdit: boolean
+	handleWeaponSelect: (weapon: any, index: any) => void
 }
 
 const WeaponSelect: FC<WeaponSelectProps> = ({
@@ -30,6 +32,8 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 	setSelectedWeapons,
 	selectedWeapons,
 	selectedSpec,
+	canEdit,
+	handleWeaponSelect,
 }) => {
 	const remainingWeapons = selectedSpec.weapons.filter((w) => {
 		return !Object.values(selectedWeapons).some((sw) => sw?.id === w.id)
@@ -38,7 +42,7 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 		<Dialog>
 			<div className='flex gap-4 flex-col'>
 				<div className='flex gap-4 items-center'>
-					<DialogTrigger asChild>
+					<DialogTrigger asChild disabled={!canEdit}>
 						<Button
 							variant='outline'
 							className='h-16 w-16 border-primary/50 border rounded-md'
@@ -76,12 +80,13 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 										className='h-[40px] p-1 border-primary/50 border rounded-md cursor-pointer hover:bg-primary/10'
 										alt='weapon-image'
 										onClick={() => {
-											setSelectedWeapons((prev) => {
-												return {
-													...prev,
-													[index]: { ...w, selectedOverclocks: [] },
-												}
-											})
+											// setSelectedWeapons((prev) => {
+											// 	return {
+											// 		...prev,
+											// 		[index]: { ...w, selectedOverclocks: [] },
+											// 	}
+											// })
+											handleWeaponSelect(w, index)
 										}}
 									/>
 								</TooltipTrigger>

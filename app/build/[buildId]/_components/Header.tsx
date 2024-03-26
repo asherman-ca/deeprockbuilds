@@ -68,7 +68,7 @@ const Header: FC<HeaderProps> = ({
 				</div>
 			</div>
 
-			{modified && <Button>Save Changes</Button>}
+			{modified && <Button variant='outline'>Save Changes</Button>}
 		</div>
 	)
 }
