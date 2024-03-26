@@ -64,15 +64,34 @@ export const newBuild = async (payload: any) => {
 			})
 		})
 
-	// map over artifacts and create a buildArtifact for each
-	// Object.values(payload.artifacts).forEach(async (a: any) => {
-	// 	await db.buildArtifact.create({
-	// 		data: {
-	// 			buildId,
-	// 			artifactId: a.id,
-	// 		},
-	// 	})}
-	// )}
-
 	return { success: 'success', buildId: buildId }
 }
+
+export const deleteBuild = async (payload: any) => {
+	const user = await auth()
+
+	if (!user || !user.user) {
+		return { error: 'not authenticated' }
+	}
+
+	const build = await db.build.findFirst({
+		where: {
+			id: payload.id,
+			userId: user.user.id,
+		},
+	})
+
+	if (!build) {
+		return { error: 'build not found' }
+	}
+
+	await db.build.delete({
+		where: {
+			id: payload.id,
+		},
+	})
+
+	return { success: 'success' }
+}
+
+export const updateBuild = async (payload: any) => {}

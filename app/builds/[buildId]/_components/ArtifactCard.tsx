@@ -22,10 +22,11 @@ const ArtifactCard: FC<ArtifactCardProps> = ({ artifact }) => {
 						alt='artifact image'
 						height={50}
 						width={50}
-						className='border-primary/50 rounded-md border h-full w-auto py-2 px-4'
+						className='border-primary/50 rounded-md border h-full w-auto py-2 px-4 cursor-auto'
 					/>
 				</TooltipTrigger>
 				<TooltipContent
+					sideOffset={10}
 					side='bottom'
 					className='w-[200px] bg-secondary border-primary/50 border p-2 space-y-1 rounded-md'
 				>
