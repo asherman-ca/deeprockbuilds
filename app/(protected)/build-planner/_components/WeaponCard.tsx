@@ -71,21 +71,24 @@ const WeaponCard: FC<WeaponCardProps> = ({
 										className={cn(
 											'border-primary/50 rounded-md border cursor-pointer hover:bg-primary/10 flex-grow',
 											{
-												'border-[#DA8200] bg-transparent':
-													selectedWeapons[index]!.selectedOverclocks.includes(
-														c
-													),
+												'border-[#DA8200] bg-transparent': selectedWeapons[
+													index
+												]!.selectedOverclocks.map((a: any) => a.id).includes(
+													c.id
+												),
 												'border-red-500/75':
 													c.unstable &&
-													!selectedWeapons[index]!.selectedOverclocks.includes(
-														c
-													),
+													!selectedWeapons[index]!.selectedOverclocks.map(
+														(a: any) => a.id
+													).includes(c.id),
 											}
 										)}
 										disabled={overclocksFull || unstablesFull}
 										onClick={() => {
 											if (
-												selectedWeapons[index]!.selectedOverclocks.includes(c)
+												selectedWeapons[index]!.selectedOverclocks.map(
+													(a: any) => a.id
+												).includes(c.id)
 											) {
 												setSelectedWeapons((prev: typeof selectedWeapons) => {
 													return {
@@ -95,7 +98,7 @@ const WeaponCard: FC<WeaponCardProps> = ({
 															selectedOverclocks: prev[
 																index
 															].selectedOverclocks.filter(
-																(i: Overclock) => i !== c
+																(i: Overclock) => i.id !== c.id
 															),
 														},
 													}
