@@ -42,9 +42,6 @@ const Client: FC<ClientProps> = ({
 		}
 	})
 
-	console.log('data', data)
-	console.log('build', build)
-
 	const [buildName, setBuildName] = useState<string>(build.name)
 	const [selectedSpec, setSelectedSpec] = useState<Spec>(
 		data
@@ -147,7 +144,6 @@ const Client: FC<ClientProps> = ({
 					setBuildName={setBuildName}
 					setModified={setModified}
 					modified={modified}
-					isPending={isPending}
 					selectedSpec={selectedSpec}
 					build={build}
 					isOwner={isOwner}

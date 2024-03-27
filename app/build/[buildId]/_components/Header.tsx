@@ -2,7 +2,7 @@ import { FaSpinner } from 'react-icons/fa'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { FC, startTransition, useState } from 'react'
+import { FC, useState, useTransition } from 'react'
 import { BuildResponse, Spec } from '@/schemas/dataSchemas'
 import { AlertCircle, Paperclip, Pencil, Trash } from 'lucide-react'
 import { deleteBuild } from '@/actions/build'
@@ -22,7 +22,6 @@ interface HeaderProps {
 	setBuildName: (value: string) => void
 	buildName: string
 	modified: boolean
-	isPending: boolean
 	selectedSpec: Spec
 	build: BuildResponse
 	isOwner: boolean
@@ -34,7 +33,6 @@ const Header: FC<HeaderProps> = ({
 	buildName,
 	setBuildName,
 	modified,
-	isPending,
 	selectedSpec,
 	build,
 	isOwner,
@@ -43,6 +41,7 @@ const Header: FC<HeaderProps> = ({
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState<boolean>(false)
 	const dateString = new Date(build.updatedAt).toLocaleDateString()
+	const [isPending, startTransition] = useTransition()
 
 	const handleDelete = () => {
 		startTransition(() => {
