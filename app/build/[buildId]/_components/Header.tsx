@@ -91,7 +91,12 @@ const Header: FC<HeaderProps> = ({
 							</h1>
 						)}
 						{isOwner && (
-							<Pencil size={20} onClick={() => setIsEditing((p) => !p)} />
+							<div>
+								<Pencil
+									onClick={() => setIsEditing((p) => !p)}
+									className='w-[15px] h-[15px] cursor-pointer'
+								/>
+							</div>
 						)}
 					</div>
 					<p className='text-nowrap'>{selectedSpec.name}</p>
@@ -143,7 +148,13 @@ const Header: FC<HeaderProps> = ({
 				)}
 
 				{modified && (
-					<Button variant='outline' onClick={handleSave}>
+					<Button
+						variant='outline'
+						onClick={handleSave}
+						className='flex gap-2 items-center'
+						disabled={isPending}
+					>
+						{isPending && <FaSpinner className='animate-spin' />}
 						Save Changes
 					</Button>
 				)}

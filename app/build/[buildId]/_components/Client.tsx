@@ -134,6 +134,7 @@ const Client: FC<ClientProps> = ({
 				artifacts: selectedArtifacts,
 			}).then((res) => {
 				toast.success('Build updated')
+				setModified(false)
 			})
 		})
 	}
