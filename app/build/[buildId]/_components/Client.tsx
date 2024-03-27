@@ -6,6 +6,7 @@ import WeaponCard from '@/app/(protected)/build-planner/_components/WeaponCard'
 import WeaponSelect from '@/app/(protected)/build-planner/_components/WeaponSelect'
 import ArtifactSelect from '@/app/(protected)/build-planner/_components/ArtifactSelect'
 import { updateBuild } from '@/actions/build'
+import { toast } from 'sonner'
 
 // BUGGGGG!!!!
 // selectedoverclocks are all undefined when navigating after initial load (bad cache?)
@@ -132,7 +133,7 @@ const Client: FC<ClientProps> = ({
 				weapons: selectedWeapons,
 				artifacts: selectedArtifacts,
 			}).then((res) => {
-				console.log(res)
+				toast.success('Build updated')
 			})
 		})
 	}

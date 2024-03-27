@@ -8,6 +8,7 @@ const inter = Inter({ subsets: ['latin'] })
 import Navbar from '@/components/Navbar'
 import { auth } from '@/auth'
 import Footer from '@/components/Footer'
+import { Toaster } from '@/components/ui/sonner'
 
 export const metadata: Metadata = {
 	title: 'DeeprockBuilds',
@@ -31,6 +32,7 @@ export default async function RootLayout({
 					{children}
 					<Analytics />
 					<Footer />
+					<Toaster />
 				</body>
 			</html>
 		</SessionProvider>

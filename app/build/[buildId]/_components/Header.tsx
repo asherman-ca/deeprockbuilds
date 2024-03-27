@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { FC, startTransition, useState } from 'react'
 import { BuildResponse, Spec } from '@/schemas/dataSchemas'
-import { AlertCircle, Pencil, Trash } from 'lucide-react'
+import { AlertCircle, Paperclip, Pencil, Trash } from 'lucide-react'
 import { deleteBuild } from '@/actions/build'
 import { useRouter } from 'next/navigation'
 import {
@@ -15,6 +15,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
+import { toast } from 'sonner'
 
 interface HeaderProps {
 	setModified: (value: boolean) => void
@@ -56,6 +57,12 @@ const Header: FC<HeaderProps> = ({
 		})
 	}
 
+	const handleCopyRoute = () => {
+		const currentRoute = window.location.href
+		navigator.clipboard.writeText(currentRoute)
+		toast.success('Link copied to clipboard')
+	}
+
 	return (
 		<div className='flex justify-between'>
 			<div className='flex items-center gap-4'>
@@ -94,6 +101,10 @@ const Header: FC<HeaderProps> = ({
 				</div>
 			</div>
 			<div className='flex gap-4 items-center'>
+				<Button variant='ghost' className='gap-2' onClick={handleCopyRoute}>
+					<Paperclip className='h-5 w-5' />
+					Share
+				</Button>
 				{isOwner && (
 					<Dialog>
 						<DialogTrigger asChild>

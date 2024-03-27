@@ -96,10 +96,6 @@ const Header: FC<HeaderProps> = ({
 				</div>
 			</div>
 			<div className='flex gap-4 items-center text-primary/75'>
-				<Button variant='ghost' className='gap-2'>
-					<Paperclip className='h-5 w-5' />
-					Share
-				</Button>
 				<Dialog>
 					<DialogTrigger asChild>
 						<Button variant='secondary' className='gap-2'>
