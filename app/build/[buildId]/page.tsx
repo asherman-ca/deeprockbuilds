@@ -12,7 +12,7 @@ interface pageProps {
 	}
 }
 
-const dynamic = 'force-dynamic'
+// const dynamic = 'force-dynamic'
 
 const page: FC<pageProps> = async ({ params }) => {
 	const build = await getBuildById(params.buildId)

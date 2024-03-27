@@ -38,9 +38,14 @@ const Client: FC<ClientProps> = ({
 		}
 	})
 
+	console.log('data', data)
+	console.log('build', build)
+
 	const [buildName, setBuildName] = useState<string>(build.name)
 	const [selectedSpec, setSelectedSpec] = useState<Spec>(
-		data[0].specs.filter((s: any) => s.id === build.spec.id)[0]
+		data
+			.filter((a: any) => a.id === build.class.id)[0]
+			.specs.filter((s: any) => s.id === build.spec.id)[0]
 	)
 	const [selectedWeapons, setSelectedWeapons] = useState<any>({
 		1: { ...build.weapons.filter((w) => w.position === 0)[0] },
