@@ -6,13 +6,13 @@ import { getArtifacts } from '@/data/artifacts'
 import Client from './_components/Client'
 import { getWeaponsBySpec } from '@/data/weapons'
 
+export const revalidate = 0
+
 interface pageProps {
 	params: {
 		buildId: string
 	}
 }
-
-// const dynamic = 'force-dynamic'
 
 const page: FC<pageProps> = async ({ params }) => {
 	const build = await getBuildById(params.buildId)

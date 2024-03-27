@@ -7,6 +7,9 @@ import WeaponSelect from '@/app/(protected)/build-planner/_components/WeaponSele
 import ArtifactSelect from '@/app/(protected)/build-planner/_components/ArtifactSelect'
 import { updateBuild } from '@/actions/build'
 
+// BUGGGGG!!!!
+// selectedoverclocks are all undefined when navigating after initial load (bad cache?)
+
 interface ClientProps {
 	build: BuildResponse
 	isOwner: boolean
