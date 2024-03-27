@@ -45,6 +45,7 @@ const Client: FC<ClientProps> = ({ data, artifacts }) => {
 				artifacts: selectedArtifacts,
 			}).then((res) => {
 				router.push(`/build/${res.buildId}`)
+				router.refresh()
 			})
 		})
 	}
