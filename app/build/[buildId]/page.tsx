@@ -26,6 +26,23 @@ const page: FC<pageProps> = async ({ params }) => {
 		return <div>Build not found</div>
 	}
 
+	build.weapons = build.weapons.map((w) => {
+		return {
+			...w,
+			...w.weapon,
+			selectedOverclocks: w.overclocks.map((o) => o.overclock),
+		}
+	}) as any
+
+	build.weapons = build.weapons.map((w) => {
+		return {
+			...w,
+			overclocks: weapons[0].weapons.filter(
+				(weapon: any) => weapon.id === w.weapon.id
+			)[0].overclocks,
+		}
+	})
+
 	return (
 		<Client
 			build={build}
