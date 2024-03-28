@@ -26,6 +26,7 @@ interface HeaderProps {
 	build: BuildResponse
 	isOwner: boolean
 	handleSave: () => void
+	isSavePending: boolean
 }
 
 const Header: FC<HeaderProps> = ({
@@ -37,6 +38,7 @@ const Header: FC<HeaderProps> = ({
 	build,
 	isOwner,
 	handleSave,
+	isSavePending,
 }) => {
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -151,9 +153,9 @@ const Header: FC<HeaderProps> = ({
 						variant='outline'
 						onClick={handleSave}
 						className='flex gap-2 items-center'
-						disabled={isPending}
+						disabled={isSavePending}
 					>
-						{isPending && <FaSpinner className='animate-spin' />}
+						{isSavePending && <FaSpinner className='animate-spin' />}
 						Save Changes
 					</Button>
 				)}

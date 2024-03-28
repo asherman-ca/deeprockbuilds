@@ -148,6 +148,7 @@ const Client: FC<ClientProps> = ({
 					build={build}
 					isOwner={isOwner}
 					handleSave={handleSave}
+					isSavePending={isPending}
 				/>
 				<div className='flex gap-4 bg-primary/10 p-4 rounded-md'>
 					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>
