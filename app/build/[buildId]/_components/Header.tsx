@@ -135,6 +135,7 @@ const Header: FC<HeaderProps> = ({
 									variant='secondary'
 									onClick={handleDelete}
 									disabled={isPending}
+									className='flex items-center gap-2'
 								>
 									{isPending && <FaSpinner className='animate-spin' />}
 									{isPending ? 'Deleting' : 'Delete'} Build

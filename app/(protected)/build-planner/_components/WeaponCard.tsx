@@ -45,12 +45,6 @@ const WeaponCard: FC<WeaponCardProps> = ({
 					onClick={() => {
 						if (index === '1' || !canEdit) return
 						handleWeaponRemove(index)
-						// setSelectedWeapons((prev: typeof selectedWeapons) => {
-						// 	return {
-						// 		...prev,
-						// 		[index]: null,
-						// 	}
-						// })
 					}}
 				/>
 				<div className='flex flex-col'>
@@ -62,12 +56,12 @@ const WeaponCard: FC<WeaponCardProps> = ({
 				{selectedWeapons[index]!.overclocks.sort(
 					(a: any, b: any) => a.unstable - b.unstable
 				).map((c: Overclock) => {
-					if (
-						selectedWeapons[index].selectedOverclocks.some(
-							(z: any) => z === undefined
-						)
-					)
-						return null
+					// if (
+					// 	selectedWeapons[index].selectedOverclocks.some(
+					// 		(z: any) => z === undefined
+					// 	)
+					// )
+					// 	return null
 					let overclocksFull =
 						selectedWeapons[index]!.selectedOverclocks.length >= 3 &&
 						!selectedWeapons[index]!.selectedOverclocks.map(
@@ -78,6 +72,10 @@ const WeaponCard: FC<WeaponCardProps> = ({
 						selectedWeapons[index].selectedOverclocks.some(
 							(w: any) => w.unstable && w.id !== c.id
 						)
+					let overclocksSelected = selectedWeapons[
+						index
+					]!.selectedOverclocks.map((a: any) => a.id).includes(c.id)
+					let visitorDisabledState = !overclocksSelected && !canEdit
 
 					return (
 						<TooltipProvider delayDuration={100} key={c.id}>
@@ -101,7 +99,9 @@ const WeaponCard: FC<WeaponCardProps> = ({
 												'cursor-default': !canEdit,
 											}
 										)}
-										disabled={overclocksFull || unstablesFull}
+										disabled={
+											overclocksFull || unstablesFull || visitorDisabledState
+										}
 										onClick={() => {
 											handleOverclockSelect(c, index)
 										}}
