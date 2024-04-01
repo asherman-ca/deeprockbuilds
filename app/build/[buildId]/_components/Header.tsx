@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { FC, useState, useTransition } from 'react'
 import { BuildResponse, Spec } from '@/schemas/dataSchemas'
-import { AlertCircle, Paperclip, Pencil, Trash } from 'lucide-react'
-import { deleteBuild } from '@/actions/build'
+import { AlertCircle, Heart, Paperclip, Pencil, Trash } from 'lucide-react'
+import { deleteBuild, newBuild } from '@/actions/build'
 import { useRouter } from 'next/navigation'
 import {
 	Dialog,
@@ -16,6 +16,7 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog'
 import { toast } from 'sonner'
+import { start } from 'repl'
 
 interface HeaderProps {
 	setModified: (value: boolean) => void
@@ -27,6 +28,7 @@ interface HeaderProps {
 	isOwner: boolean
 	handleSave: () => void
 	isSavePending: boolean
+	isAuthedVisitor: boolean
 }
 
 const Header: FC<HeaderProps> = ({
@@ -39,6 +41,7 @@ const Header: FC<HeaderProps> = ({
 	isOwner,
 	handleSave,
 	isSavePending,
+	isAuthedVisitor,
 }) => {
 	const router = useRouter()
 	const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -55,6 +58,20 @@ const Header: FC<HeaderProps> = ({
 				.catch((err) => {
 					console.log(err)
 				})
+		})
+	}
+
+	const handleBuildCopy = () => {
+		startTransition(() => {
+			newBuild({
+				name: build.name,
+				description: '',
+				spec: selectedSpec,
+				weapons: build.weapons,
+				artifacts: build.artifacts,
+			}).then((res) => {
+				console.log(res)
+			})
 		})
 	}
 
@@ -111,6 +128,25 @@ const Header: FC<HeaderProps> = ({
 					<Paperclip className='h-5 w-5' />
 					Share
 				</Button>
+				{isAuthedVisitor && (
+					<Dialog>
+						<DialogTrigger asChild>
+							<Button variant='outline' className='gap-2'>
+								<Heart className='h-5 w-5' />
+								Save Build
+							</Button>
+						</DialogTrigger>
+						<DialogContent>
+							<DialogHeader>
+								<DialogTitle>Save Build</DialogTitle>
+								<DialogDescription>
+									You must be logged in to save builds.
+								</DialogDescription>
+							</DialogHeader>
+							<Button onClick={handleBuildCopy}>Save</Button>
+						</DialogContent>
+					</Dialog>
+				)}
 				{isOwner && (
 					<Dialog>
 						<DialogTrigger asChild>

@@ -1,6 +1,6 @@
 'use client'
 import { Artifact, BuildResponse, Overclock, Spec } from '@/schemas/dataSchemas'
-import { FC, useEffect, useState, useTransition } from 'react'
+import { FC, useState, useTransition } from 'react'
 import Header from './Header'
 import WeaponCard from '@/app/(protected)/build-planner/_components/WeaponCard'
 import WeaponSelect from '@/app/(protected)/build-planner/_components/WeaponSelect'
@@ -8,15 +8,12 @@ import ArtifactSelect from '@/app/(protected)/build-planner/_components/Artifact
 import { updateBuild } from '@/actions/build'
 import { toast } from 'sonner'
 
-// BUGGGGG!!!!
-// selectedoverclocks are all undefined when navigating after initial load (bad cache?)
-
 interface ClientProps {
 	build: BuildResponse
 	isOwner: boolean
 	data: any
 	artifacts: any
-	weapons: any
+	isAuthedVisitor: boolean
 }
 
 const Client: FC<ClientProps> = ({
@@ -24,24 +21,8 @@ const Client: FC<ClientProps> = ({
 	isOwner,
 	data,
 	artifacts,
-	weapons,
+	isAuthedVisitor,
 }) => {
-	// build.weapons = build.weapons.map((w) => {
-	// 	return {
-	// 		...w,
-	// 		...w.weapon,
-	// 		selectedOverclocks: w.overclocks.map((o) => o.overclock),
-	// 	}
-	// }) as any
-
-	// build.weapons = build.weapons.map((w) => {
-	// 	return {
-	// 		...w,
-	// 		overclocks: weapons.filter((weapon: any) => weapon.id === w.weapon.id)[0]
-	// 			.overclocks,
-	// 	}
-	// })
-
 	const [buildName, setBuildName] = useState<string>(build.name)
 	const [selectedSpec, setSelectedSpec] = useState<Spec>(
 		data
@@ -149,6 +130,7 @@ const Client: FC<ClientProps> = ({
 					isOwner={isOwner}
 					handleSave={handleSave}
 					isSavePending={isPending}
+					isAuthedVisitor={isAuthedVisitor}
 				/>
 				<div className='flex gap-4 bg-primary/10 p-4 rounded-md'>
 					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>

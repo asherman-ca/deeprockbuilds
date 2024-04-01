@@ -18,6 +18,7 @@ const page: FC<pageProps> = async ({ params }) => {
 	const build = await getBuildById(params.buildId)
 	const session = await auth()
 	const isOwner = session?.user?.id === build?.userId
+	const isAuthedVisitor = session?.user && !isOwner ? true : false
 	const data = await getClassesSpecsAndWeapons()
 	const artifacts = await getArtifacts()
 	const weapons = await getWeaponsBySpec(build?.specId!)
@@ -49,7 +50,7 @@ const page: FC<pageProps> = async ({ params }) => {
 			isOwner={isOwner}
 			data={data}
 			artifacts={artifacts}
-			weapons={weapons[0].weapons}
+			isAuthedVisitor={isAuthedVisitor}
 		/>
 	)
 }
