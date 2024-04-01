@@ -52,11 +52,11 @@ const Client: FC<ClientProps> = ({ classes, builds }) => {
 
 				<div className='flex flex-col basis-[65%]'>
 					<div className='bg-primary/10 rounded-md'>
-						{Object.keys(groupedBuilds).map((index: string) => (
+						{Object.keys(indexToTierMap).map((index: string) => (
 							<div className='flex'>
 								<p
 									className={cn(
-										`flex items-center px-8 ${indexToTierMap[index].color} text-xl font-semibold text-black w-[75px]`,
+										`flex items-center px-8 ${indexToTierMap[index].color} text-xl font-semibold text-black w-[75px] h-[75px]`,
 										{
 											'rounded-tl-md': index === '0',
 											'rounded-bl-md': index === '3',
@@ -66,7 +66,7 @@ const Client: FC<ClientProps> = ({ classes, builds }) => {
 									{indexToTierMap[index].tier}
 								</p>
 								<div className='grid grid-cols-3 p-2 gap-2 flex-1'>
-									{groupedBuilds[index].map((item: metaBuild) => (
+									{groupedBuilds[index]?.map((item: metaBuild) => (
 										<a
 											href={`/build/${item.build.id}`}
 											key={item.build.id}
