@@ -52,7 +52,7 @@ const Client: FC<ClientProps> = ({ classes, builds }) => {
 
 				<div className='flex flex-col basis-[65%]'>
 					<div className='bg-primary/10 rounded-md'>
-						{Object.keys(groupedBuilds!).map((index: string) => (
+						{Object.keys(groupedBuilds).map((index: string) => (
 							<div className='flex'>
 								<div
 									className={cn(
@@ -66,7 +66,7 @@ const Client: FC<ClientProps> = ({ classes, builds }) => {
 									{indexToTierMap[index].tier}
 								</div>
 								<div className='grid grid-cols-3 p-2 gap-4 flex-1'>
-									{groupedBuilds![index].map((item: metaBuild) => (
+									{groupedBuilds[index].map((item: metaBuild) => (
 										<a
 											href={`/build/${item.build.id}`}
 											key={item.build.id}
