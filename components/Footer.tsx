@@ -14,8 +14,8 @@ const Footer: FC<FooterProps> = ({}) => {
 							Deeprockbuilds is not affiliated with or endorsed by Funday games
 						</p>
 						<p>
-							Deeprockbuilds is a collection of hand-crafted top meta builds for
-							Deeprock Galactic Survivors
+							Deeprockbuilds is a collection of top meta builds for Deeprock
+							Galactic Survivors
 						</p>
 						<p className='mt-2 font-semibold'>Deeprockbuilds.vercel.app 2024</p>
 					</div>
