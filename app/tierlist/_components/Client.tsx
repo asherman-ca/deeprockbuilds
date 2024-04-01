@@ -32,8 +32,8 @@ const Client: FC<ClientProps> = ({ classes, builds }) => {
 		classNames,
 		builds
 	)
-	// groupBy is very new JS method and does not exist on Object type
-	// @ts-expect-error
+
+	// @ts-ignore
 	const groupedBuilds = Object.groupBy(
 		filteredBuilds,
 		({ position }: { position: string }) => position
