@@ -9,10 +9,10 @@ import { FC, useState } from 'react'
 const classNames = ['Gunner', 'Scout', 'Driller', 'Engineer'] as const
 
 const indexToTierMap: { [index: string]: { tier: string; color: string } } = {
-	0: { tier: 'S', color: 'bg-red-500' },
-	1: { tier: 'A', color: 'bg-orange-500' },
-	2: { tier: 'B', color: 'bg-yellow-500' },
-	3: { tier: 'C', color: 'bg-green-500' },
+	0: { tier: 'S', color: 'bg-red-800/90' },
+	1: { tier: 'A', color: 'bg-orange-800/90' },
+	2: { tier: 'B', color: 'bg-yellow-800/90' },
+	3: { tier: 'C', color: 'bg-green-800/90' },
 }
 
 interface ClientProps {
@@ -54,9 +54,9 @@ const Client: FC<ClientProps> = ({ classes, builds }) => {
 					<div className='bg-primary/10 rounded-md'>
 						{Object.keys(groupedBuilds).map((index: string) => (
 							<div className='flex'>
-								<div
+								<p
 									className={cn(
-										`flex items-center px-8 ${indexToTierMap[index].color}`,
+										`flex items-center px-8 ${indexToTierMap[index].color} text-xl font-semibold text-black w-[75px]`,
 										{
 											'rounded-tl-md': index === '0',
 											'rounded-bl-md': index === '3',
@@ -64,8 +64,8 @@ const Client: FC<ClientProps> = ({ classes, builds }) => {
 									)}
 								>
 									{indexToTierMap[index].tier}
-								</div>
-								<div className='grid grid-cols-3 p-2 gap-4 flex-1'>
+								</p>
+								<div className='grid grid-cols-3 p-2 gap-2 flex-1'>
 									{groupedBuilds[index].map((item: metaBuild) => (
 										<a
 											href={`/build/${item.build.id}`}
