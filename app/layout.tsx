@@ -26,7 +26,7 @@ export default async function RootLayout({
 		<SessionProvider session={session}>
 			<html lang='en'>
 				<body
-					className={`${inter.className} flex flex-col justify-center w-full min-h-screen dark min-w-[1200px]`}
+					className={`${inter.className} flex flex-col justify-center w-full min-h-screen dark md:min-w-[1200px] no-scrollbar`}
 				>
 					<Navbar />
 					{children}

@@ -86,3 +86,11 @@
 .input-reset:focus-visible {
 	box-shadow: none !important;
 }
+
+.no-scrollbar {
+	overflow-y: auto; /* Maintains scroll functionality */
+	&::-webkit-scrollbar {
+		/* Targets scrollbar in Webkit browsers */
+		display: none;
+	}
+}

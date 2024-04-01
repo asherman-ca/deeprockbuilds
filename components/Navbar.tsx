@@ -39,7 +39,7 @@ const Navbar: FC<NavbarProps> = () => {
 							key={tab.slug}
 							href={tab.slug}
 							className={cn(
-								'py-2 hover:bg-primary/15 px-5 text-primary/75 hover:text-primary cursor-pointer',
+								'py-2 hover:bg-primary/15 text-ellipsis text-nowrap overflow-hidden px-1 md:px-5 text-primary/75 hover:text-primary cursor-pointer',
 								{
 									'border-b-2 border-primary': tab.slug === pathname,
 									'cursor-not-allowed':

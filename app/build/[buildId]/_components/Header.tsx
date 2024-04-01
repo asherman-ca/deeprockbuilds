@@ -16,7 +16,6 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog'
 import { toast } from 'sonner'
-import { start } from 'repl'
 
 interface HeaderProps {
 	setModified: (value: boolean) => void
@@ -69,9 +68,14 @@ const Header: FC<HeaderProps> = ({
 				spec: selectedSpec,
 				weapons: build.weapons,
 				artifacts: build.artifacts,
-			}).then((res) => {
-				console.log(res)
 			})
+				.then((res) => {
+					router.push(`/build/${res.buildId}`)
+					console.log(res)
+				})
+				.catch((err) => {
+					console.log(err)
+				})
 		})
 	}
 
