@@ -36,6 +36,7 @@ export interface Build {
 	class: Class
 	spec: Spec
 	artifacts: Artifact[]
+	position: string
 }
 
 export interface metaBuild {
@@ -43,6 +44,7 @@ export interface metaBuild {
 	popular: boolean
 	class: Class
 	id: string
+	position: string
 }
 
 export interface Artifact {
