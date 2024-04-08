@@ -8,12 +8,12 @@ import {
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
-import { FaUser } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { Button } from '@/components/ui/button'
 import { signIn, signOut } from 'next-auth/react'
+import { ChevronDown } from 'lucide-react'
+import { FaUser } from 'react-icons/fa'
 
 interface DropDownMenuProps {}
 
@@ -32,12 +32,7 @@ const DropDownMenu: FC<DropDownMenuProps> = () => {
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger>
-				<Avatar className='h-6 w-6'>
-					<AvatarImage src={user?.image || ''} />
-					<AvatarFallback>
-						<FaUser className='' />
-					</AvatarFallback>
-				</Avatar>
+				{user ? <ChevronDown /> : <FaUser />}
 			</DropdownMenuTrigger>
 			<DropdownMenuContent className='bg-secondary border-primary/20 border'>
 				{!user ? (

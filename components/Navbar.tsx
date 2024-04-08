@@ -7,6 +7,8 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { usePathname } from 'next/navigation'
 import { protectedRoutes } from '@/routes'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { FaUser } from 'react-icons/fa'
 
 interface NavbarProps {}
 
@@ -28,7 +30,17 @@ const Navbar: FC<NavbarProps> = () => {
 					<h2 className='font-semibold'>DeeprockBuilds</h2>
 				</Link>
 				<div className='flex gap-2 items-center'>
-					{user && <h2 className='text-sm'>{user.name}</h2>}
+					{user && (
+						<>
+							<Avatar className='h-6 w-6'>
+								<AvatarImage src={user?.image || ''} />
+								<AvatarFallback>
+									<FaUser />
+								</AvatarFallback>
+							</Avatar>
+							<h2 className='text-sm'>{user.name}</h2>
+						</>
+					)}
 					<DropdownMenu />
 				</div>
 			</div>
