@@ -34,7 +34,11 @@ const DropDownMenu: FC<DropDownMenuProps> = () => {
 			<DropdownMenuTrigger>
 				{user ? <ChevronDown /> : <FaUser />}
 			</DropdownMenuTrigger>
-			<DropdownMenuContent className='bg-secondary border-primary/20 border'>
+			<DropdownMenuContent
+				className='bg-secondary border-primary/20 border'
+				sideOffset={16}
+				side='bottom'
+			>
 				{!user ? (
 					<>
 						<DropdownMenuLabel>Login/Register</DropdownMenuLabel>

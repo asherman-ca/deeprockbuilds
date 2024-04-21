@@ -33,14 +33,14 @@ const WeaponCard: FC<WeaponCardProps> = ({
 			<div className='flex gap-4 items-center'>
 				<Image
 					className={cn(
-						'h-16 w-16 border-[#DA8200] border rounded-md p-1 cursor-pointer',
+						'h-12 w-24 border-[#DA8200] border rounded-md p-2 cursor-pointer',
 						{
 							'cursor-default': !canEdit,
 						}
 					)}
 					src={selectedWeapons[index]!.image}
-					height={50}
-					width={50}
+					height={90}
+					width={180}
 					alt='weapon-image'
 					onClick={() => {
 						if (index === '1' || !canEdit) return

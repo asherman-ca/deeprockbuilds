@@ -26,7 +26,7 @@ const ArtifactSelect: FC<ArtifactSelectProps> = ({
 	handleArtifactSelect,
 }) => {
 	return (
-		<div className='flex gap-2 flex-wrap'>
+		<div className='grid grid-cols-6 gap-2'>
 			{artifacts?.map((a) => {
 				const selected = selectedArtifacts.map((b) => b.id).includes(a.id)
 				const visitorDisabledState = !selected && !canEdit

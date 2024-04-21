@@ -56,6 +56,7 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 				<div className='flex gap-2'>
 					{selectedSpec.primaryWeapon.overclocks.map((c) => (
 						<Button
+							key={c.id}
 							disabled
 							className='h-[40px] border-primary/50 border rounded-md flex-grow'
 							variant='outline'
@@ -68,16 +69,16 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 					<DialogTitle>Weapon Selection</DialogTitle>
 					<DialogDescription>Select Weapon Slot {index}</DialogDescription>
 				</DialogHeader>
-				<div className='flex gap-2 flex-wrap'>
+				<div className='grid grid-cols-8 gap-2'>
 					{remainingWeapons.map((w) => (
 						<TooltipProvider delayDuration={100} key={w.id}>
 							<Tooltip>
 								<TooltipTrigger tabIndex={-1} asChild>
 									<Image
 										src={w.image}
-										height={50}
-										width={50}
-										className='h-[40px] p-1 border-primary/50 border rounded-md cursor-pointer hover:bg-primary/10'
+										height={90}
+										width={180}
+										className='p-1 h-10 flex-grow border-primary/50 border rounded-md cursor-pointer hover:bg-primary/10'
 										alt='weapon-image'
 										onClick={() => {
 											handleWeaponSelect(w, index)
