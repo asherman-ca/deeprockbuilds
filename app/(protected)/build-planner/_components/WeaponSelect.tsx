@@ -75,6 +75,8 @@ const WeaponSelect: FC<WeaponSelectProps> = ({
 							<Tooltip>
 								<TooltipTrigger tabIndex={-1} asChild>
 									<Image
+										// loading='eager'
+										priority={true}
 										src={w.image}
 										height={90}
 										width={180}

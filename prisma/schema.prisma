@@ -40,6 +40,15 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@unique([identifier, token])
+  @@map("verificationtokens")
+}
+
 model Class {
   id          String  @id @default(cuid())
   name        String
