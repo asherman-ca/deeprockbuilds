@@ -15,6 +15,7 @@ import {
 	TooltipProvider,
 	TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { toast } from 'sonner'
 
 interface NavbarProps {}
 
@@ -60,11 +61,11 @@ const Navbar: FC<NavbarProps> = () => {
 										<TooltipTrigger tabIndex={-1} asChild>
 											<div
 												className={cn(
-													'py-2 hover:bg-primary/15 text-ellipsis text-nowrap overflow-hidden px-1 md:px-5 text-primary/75 hover:text-primary',
-													{
-														'border-b-2 border-primary': tab.slug === pathname,
-													}
+													'py-2 hover:bg-primary/15 text-ellipsis text-nowrap overflow-hidden px-1 md:px-5 text-primary/75 hover:text-primary cursor-pointer'
 												)}
+												onClick={() => {
+													toast.error('Login or register to access this page')
+												}}
 											>
 												{tab.title}
 											</div>
