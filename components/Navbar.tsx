@@ -3,7 +3,7 @@
 // burger code
 // https://codepen.io/RRoberts/pen/ZBYaJr
 
-import { FC, useState } from 'react'
+import { FC, useEffect, useRef, useState } from 'react'
 import { useCurrentUser } from '@/hooks/useCurrentUser'
 import DropdownMenu from './DropdownMenu'
 import Link from 'next/link'
@@ -19,7 +19,6 @@ import {
 	TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { toast } from 'sonner'
-import { Button } from './ui/button'
 
 interface NavbarProps {}
 
@@ -34,35 +33,53 @@ const Navbar: FC<NavbarProps> = () => {
 		{ title: 'Database', slug: '/database' },
 	]
 
+	const menuRef = useRef(null as any)
+	const buttonRef = useRef(null as any)
+
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 
-	const handleClick = () => {
+	const handleClick = (event: any) => {
+		event.stopPropagation()
 		setIsOpen(!isOpen)
 	}
 
+	useEffect(() => {
+		function handleClickOutside(event: any) {
+			if (
+				menuRef.current &&
+				!menuRef.current.contains(event.target) &&
+				!buttonRef.current.contains(event.target)
+			) {
+				setIsOpen(false)
+			}
+		}
+
+		// Bind the event listener
+		document.addEventListener('mouseup', handleClickOutside)
+		return () => {
+			// Unbind the event listener on clean up
+			document.removeEventListener('mouseup', handleClickOutside)
+		}
+	}, [])
+
 	return (
-		<div className='w-full flex flex-col items-center relative'>
+		<div className='w-full flex flex-col items-center relative border-b-4 border-primary/10 md:border-b-0'>
 			<div className='flex justify-between items-center py-4 w-[90%] sm:w-[80%] max-w-[1400px]'>
 				<div className='flex items-center gap-2'>
 					<Link href={'/'}>
 						<h2 className='font-semibold'>DeeprockBuilds</h2>
 					</Link>
-
-					{/* <Button className='md:hidden' size='sm' onClick={handleClick}>
-						Open
-					</Button> */}
-
 					<div
-						className={`hamburger ${isOpen && `is-active`}`}
+						className={`hamburger ${isOpen && `is-active`} md:hidden`}
 						id='hamburger-6'
 						onClick={handleClick}
+						ref={buttonRef}
 					>
 						<span className='line'></span>
 						<span className='line'></span>
 						<span className='line'></span>
 					</div>
 				</div>
-
 				<div className='flex gap-2 items-center'>
 					{user && (
 						<>
@@ -79,7 +96,10 @@ const Navbar: FC<NavbarProps> = () => {
 				</div>
 			</div>
 			{isOpen && (
-				<div className='absolute z-10 bg-secondary w-full top-full px-[5%] py-4 flex flex-col gap-4'>
+				<div
+					ref={menuRef}
+					className='absolute z-10 bg-secondary w-full top-full px-[5%] py-4 flex flex-col gap-4'
+				>
 					{tabs.map((tab) => {
 						if (protectedRoutes.includes(tab.slug) && !user) {
 							return (
