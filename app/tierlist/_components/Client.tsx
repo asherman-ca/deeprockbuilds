@@ -4,7 +4,7 @@ import { useUserBuilds } from '@/hooks/useUserBuilds'
 import { cn } from '@/lib/utils'
 import { metaBuild } from '@/schemas/dataSchemas'
 import Image from 'next/image'
-import { FC, useState } from 'react'
+import { FC } from 'react'
 
 const classNames = ['Gunner', 'Scout', 'Driller', 'Engineer'] as const
 
@@ -26,17 +26,28 @@ interface ClientProps {
 }
 
 const Client: FC<ClientProps> = ({ classes, builds }) => {
-	const [search, setSearch] = useState<string>('')
 	const { filteredBuilds, selectedClass, setSelectedClass } = useUserBuilds(
-		search,
+		'',
 		classNames,
 		builds
 	)
 
 	// @ts-ignore
-	const groupedBuilds = Object.groupBy(
-		filteredBuilds,
-		({ position }: { position: string }) => position
+	// const groupedBuilds = Object.groupBy(
+	// 	filteredBuilds,
+	// 	({ position }: { position: string }) => position
+	// )
+
+	const groupedBuilds: { [key: string]: metaBuild[] } = filteredBuilds.reduce(
+		(groups, build: any) => {
+			const key = build.position
+			if (!groups[key]) {
+				groups[key] = []
+			}
+			groups[key].push(build)
+			return groups
+		},
+		{} as { [key: string]: metaBuild[] }
 	)
 
 	return (
@@ -66,7 +77,7 @@ const Client: FC<ClientProps> = ({ classes, builds }) => {
 									{indexToTierMap[index].tier}
 								</p>
 								<div className='grid grid-cols-3 p-2 gap-2 flex-1'>
-									{groupedBuilds[index]?.map((item: metaBuild) => (
+									{groupedBuilds[index]?.map((item) => (
 										<a
 											href={`/build/${item.build.id}`}
 											key={item.build.id}
