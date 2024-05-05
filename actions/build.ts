@@ -105,6 +105,9 @@ export const updateBuild = async (payload: any) => {
 			id: payload.id,
 			userId: user.user.id,
 		},
+		select: {
+			artifacts: true,
+		},
 	})
 
 	if (!build) {
@@ -125,6 +128,13 @@ export const updateBuild = async (payload: any) => {
 		},
 	})
 
+	const payloadArtifactIds = payload.artifacts.map((a: any) => a.id)
+	const buildArtifactIds = build.artifacts.map((a: any) => a.id)
+
+	const disconnectArtifacts = buildArtifactIds.filter(
+		(a) => !payloadArtifactIds.includes(a)
+	)
+
 	await db.build.update({
 		where: {
 			id: payload.id,
@@ -132,6 +142,11 @@ export const updateBuild = async (payload: any) => {
 		data: {
 			name: payload.name,
 			artifacts: {
+				disconnect: disconnectArtifacts.map((a) => {
+					return {
+						id: a,
+					}
+				}),
 				connect: payload.artifacts.map((a: any) => {
 					return {
 						id: a.id,
