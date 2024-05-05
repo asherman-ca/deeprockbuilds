@@ -86,8 +86,8 @@ const Header: FC<HeaderProps> = ({
 	}
 
 	return (
-		<div className='flex justify-between'>
-			<div className='flex items-center gap-4 relative'>
+		<div className='flex justify-between flex-col md:flex-row gap-4 md:gap-0'>
+			<div className='flex items-center gap-4'>
 				<Image
 					className='p-1 bg-primary/10 rounded-md h-full'
 					src={selectedSpec.image}
