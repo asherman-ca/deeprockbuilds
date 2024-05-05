@@ -108,10 +108,10 @@ const WeaponCard: FC<WeaponCardProps> = ({
 									>
 										<Image
 											src={c!.image}
-											alt='overclock image'
+											alt='overclock image w-full h-auto'
 											height={40}
 											width={40}
-											className='p-2'
+											className={'p-0 sm:p-2'}
 										/>
 									</Button>
 								</TooltipTrigger>

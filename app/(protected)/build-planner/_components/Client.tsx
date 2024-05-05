@@ -119,7 +119,7 @@ const Client: FC<ClientProps> = ({ data, artifacts }) => {
 					buildName={buildName}
 					isPending={isPending}
 				/>
-				<div className='flex gap-4 bg-primary/10 p-4 rounded-md flex-col md:flex-row'>
+				<div className='flex gap-4 bg-primary/10 p-4 rounded-md flex-col xl:flex-row'>
 					<div className='flex flex-col gap-4 flex-1 bg-primary/5 p-4 rounded-md'>
 						<p className='font-semibold'>Weapons:</p>
 						{Object.keys(selectedWeapons).map((key: string) => {

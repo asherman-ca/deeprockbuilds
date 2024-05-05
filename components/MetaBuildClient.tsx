@@ -45,7 +45,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 					</div>
 				</div>
 
-				<div className='flex gap-4 flex-col md:flex-row'>
+				<div className='flex gap-4 flex-col lg:flex-row'>
 					<div className='flex basis-[35%] items-start'>
 						<ClassSelector
 							classes={classes}
@@ -54,7 +54,7 @@ const page: FC<pageProps> = ({ classes, builds }) => {
 						/>
 					</div>
 
-					<div className='flex flex-col basis-[65%] text-primary/75 md:min-w-[600px]'>
+					<div className='flex flex-col basis-[65%] text-primary/75 lg:min-w-[600px]'>
 						<div className='flex flex-col gap-4 pb-4'>
 							<h2 className='p-2 bg-primary/20 rounded-md'>Popular Builds</h2>
 							{popularFilteredBuilds.map((item) => (

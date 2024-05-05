@@ -52,7 +52,7 @@ const Client: FC<ClientProps> = ({ classes, builds }) => {
 
 	return (
 		<div className='parent flex-1'>
-			<div className='gutters flex py-4 gap-4 md:flex-row flex-col'>
+			<div className='gutters flex py-4 gap-4 lg:flex-row flex-col'>
 				<div className='flex basis-[35%] items-start'>
 					<ClassSelector
 						classes={classes}

@@ -42,7 +42,7 @@ const Client: FC<ClientProps> = ({ builds, classes }) => {
 						/>
 					</div>
 				</div>
-				<div className='flex gap-8'>
+				<div className='flex gap-4 flex-col lg:flex-row'>
 					<div className='flex basis-[35%] items-start'>
 						<ClassSelector
 							classes={classes}
@@ -50,7 +50,7 @@ const Client: FC<ClientProps> = ({ builds, classes }) => {
 							selectedClass={selectedClass}
 						/>
 					</div>
-					<div className='flex flex-col basis-[65%] text-primary/75 min-w-[600px] gap-4'>
+					<div className='flex flex-col basis-[65%] text-primary/75 lg:min-w-[600px] gap-4'>
 						<h2 className='p-2 bg-primary/20 rounded-md'>
 							All {selectedClass} Builds
 						</h2>
